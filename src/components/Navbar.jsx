@@ -1,14 +1,15 @@
 "use client";
 
-import { useMyContext } from "@/contexts/ContextApi";
+import { useMyContext } from "../contexts/ContextApi";
 import { Box, Button, Text } from "@chakra-ui/react";
 import React from "react";
-import useNavbar from "@/hooks/useNavbar";
+import useNavbar from "../hooks/useNavbar";
+
 const Navbar = () => {
   const { palette } = useMyContext();
   const [scroll, scrollp] = useNavbar();
   const Navlinks = [
-    { name: "Commitments", link: "/commitments" },
+    { name: "Rent/Buy", link: "/order" },
     { name: "Services", link: "/services" },
     { name: "Contact Us", link: "/footer" },
   ];
@@ -45,7 +46,7 @@ const Navbar = () => {
           width="200px"
           cursor={'pointer'}
         >
-          Aqua Harvest 2.0
+         EnsembleHaven
           <span>
             <Text
               sx={{
@@ -56,7 +57,7 @@ const Navbar = () => {
               color={palette.text}
               fontSize={"1.5rem"}
             >
-              Aqua Harvest 2.0
+            EnsembleHaven
             </Text>
           </span>
         </Text>

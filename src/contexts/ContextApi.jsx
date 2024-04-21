@@ -5,7 +5,7 @@ import { useColorMode } from "@chakra-ui/react";
 import { ThemeContext } from "@emotion/react";
 import { color } from "framer-motion";
 
-export const MyContext = createContext<contextVariables>({
+export const MyContext = createContext({
   palette: {
     primary: "#33d7cc",
     secondary: "#95d0ca",

@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 
 export default function useNavbar() {
-  const [scrollp, setScrollP] = useState<number>(window && window.scrollY);
-  const [scroll, setScroll] = useState<boolean>(false);
+  const [scrollp, setScrollP] = useState(window && window.scrollY);
+  const [scroll, setScroll] = useState(false);
   useEffect(() => {
     window.addEventListener('scroll', navScrolled);
     function navScrolled() {
