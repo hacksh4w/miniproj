@@ -48,7 +48,7 @@ const Hero = () => {
                       <Button text='Shop now' styles='' />
                       <a href='#featured'
                         className="xs:ml-10 ml-5 font-poppins font-semibold xs:text-[18px] text-[16px] text-darkBlue"
-                      >Get new deals</a>
+                      > </a>
                     </div>
                 </motion.div>
             </motion.div>

@@ -24,7 +24,7 @@ export default function Login() {
         <form className={styles.form}>
           <input type="email" placeholder="Email" className={styles.input} />
           <input type="password" placeholder="Password" className={styles.input} />
-          <button type="submit" className={styles.signInButton}>Sign In</button>
+          <button type="submit" className={styles.signInButton}><Link href="/page">Sign In </Link> </button>
         </form>
 
         <p className={styles.signUpLink}>

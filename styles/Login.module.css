@@ -10,7 +10,7 @@
   }
   
   .main {
-    padding: 3rem 1rem;
+    padding: 5rem 0;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -19,13 +19,12 @@
   }
   
   .title {
-    margin: left 50%;
+    margin: 0;
     line-height: 1.5;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
     color: #333; /* Adjust color to match your design */
     text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Add subtle text shadow */
   }
   
   .form {
@@ -34,28 +33,21 @@
   }
   
   .input {
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    font-size: 1rem;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 4px;
     width: 100%;
-    transition: border-color 0.3s ease; /* Add transition for smoother hover effect */
-  }
-  
-  .input:focus {
-    border-color: #0070f3; /* Change border color on focus */
   }
   
   .signInButton {
-    background-color: #f39200;
+    background-color: #0070f3;
     color: white;
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem;
     border: none;
-    margin-left:35% ;
-    align-self: center;
-    border-radius: 8px;
-    font-size: 1.1rem;
+    border-radius: 4px;
+    font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease; /* Add transition for smoother hover effect */
   }
@@ -72,5 +64,12 @@
     justify-content: center;
     align-items: center;
     background-color: #f9f9f9; /* Background color for footer */
+  }
+  
+  /* Media query for responsiveness */
+  @media (max-width: 768px) {
+    .container {
+      padding: 0 0.5rem;
+    }
   }
   
