@@ -65,10 +65,12 @@ const Navbar = ({ toggleNavBar, menuToggle }) => {
             </div>
 
             <div className="sm:hidden z-[5] flex flex-1 justify-end item-center relative">
-                <img
+                <Image
                     src={menuToggle ? "./close.svg" : "./menu.svg"}
                     alt="menu"
                     onClick={() => toggleNavBar((prev) => !prev)}
+                    width={28}
+                    height={28}
                     className="w-[28px] h-[28px] object-contain"
                 />
             </div>
