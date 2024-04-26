@@ -1,42 +1,42 @@
-'use client'
-import React from "react";
+// pages/signup.js
+
 import Head from 'next/head';
 import Link from 'next/link';
+import styles from '../../../../styles/Signup.module.css';
 
-import styles from '../styles/Login.module.css';
-
-export default function Login() {
+export default function SignUp() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Login Page</title>
-        <meta name="description" content="Login to access your account" />
+        <title>Sign Up Page</title>
+        <meta name="description" content="Create a new account" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
 
+
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Login to Your Account
- 
+          Create a New Account
         </h1>
 
         <form className={styles.form}>
+          <input type="text" placeholder="Full Name" className={styles.input} />
           <input type="email" placeholder="Email" className={styles.input} />
           <input type="password" placeholder="Password" className={styles.input} />
-          <button type="submit" className={styles.signInButton}><Link href="/page">Sign In </Link> </button>
+          <button type="submit" className={styles.signUpButton}>Sign Up</button>
         </form>
 
-        <p className={styles.signUpLink}>
-          Don't have an account?{' '}
-          <Link href="/signup">
-            Sign Up
+        <p className={styles.loginLink}>
+          Already have an account?{' '}
+          <Link href="/login">
+            Login
           </Link>
         </p>
       </main>
 
       <footer className={styles.footer}>
-        This is your login page footer.
+        This is your signup page footer.
       </footer>
     </div>
   );

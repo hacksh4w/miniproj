@@ -2,7 +2,7 @@
 
 import React from "react";
 import { stats } from "../constants";
-import styles from "../styles";
+import styles from "../../styles";
 import {motion} from 'framer-motion'
 import { staggerContainer, fadeIn } from "../utils/motion";
 

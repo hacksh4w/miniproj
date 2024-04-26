@@ -1,7 +1,7 @@
 'use client'
 
-import styles from "../styles";
-import { layout } from "../styles";
+import styles from "../../styles";
+import { layout } from "../../styles";
 import { Button } from "../components";
 import React from "react";
 import Carousel from "../components/Carousel";

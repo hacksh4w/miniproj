@@ -1,21 +1,30 @@
-"use client";
-import styles from "./page.module.css";
-import  { Box, useColorMode } from "@chakra-ui/react";
-import { useMyContext } from "../contexts/ContextApi";
-import Navbar from "../components/Navbar";
-import { ChakraProvider } from "@chakra-ui/react";
-import { ThemeProvider } from "@emotion/react";
+import { Footer, Navbar, ToggleNavbar } from "../components";
+import ProgressBar from "../components/ProgressBar";
+import {
+    Hero,
+    About,
+    Bestsellers,
+    Community,
+    Stats,
+    Testimonials,
+    Partners,
+} from "../sections";
 
 export default function Home() {
-  const {palette} = useMyContext();
-  useColorMode();
-  return (
-    // <ChakraProvider theme={theme}>
-    <Box bg={palette.background} sx={{
-      minHeight:'200vh'
-    }}>
-     <Navbar/>
-    </Box>
-  // </ChakraProvider>
-  );
+    return (
+        <div className="overflow-y-visible">
+            <div className="overflow-x-clip">
+                <ToggleNavbar />
+                <Hero />
+                <Stats />
+                <About />
+                <Bestsellers />
+                <Community />
+                <Testimonials />
+                <Partners />
+                <Footer />
+                <ProgressBar />
+            </div>
+        </div>
+    );
 }

@@ -3,7 +3,7 @@
 import React from "react";
 import { Sidebar, Navbar } from ".";
 import { useState } from "react";
-import styles from "../styles";
+import styles from "../../styles";
 
 const ToggleNavbar = () => {
 

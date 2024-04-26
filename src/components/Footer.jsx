@@ -1,6 +1,6 @@
 'use client'
 
-import styles from "../styles";
+import styles from "../../styles";
 import React from "react";
 import { footerLinks, socialMedia } from "../constants";
 import Image from "next/image";

@@ -1,7 +1,7 @@
 "use client";
 
 import { TitleText, TypingText } from "../components";
-import styles from "../styles";
+import styles from "../../styles";
 import React from "react";
 import { motion } from "framer-motion";
 import { staggerContainer, fadeIn } from "../utils/motion";

@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { staggerContainer } from "../utils/motion";
-import styles from "../styles";
+import styles from "../../styles";
 import { TypingText, TitleText } from "../components";
 import { partners } from "../constants";
 import Image from "next/image";

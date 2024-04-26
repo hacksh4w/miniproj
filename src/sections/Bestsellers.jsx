@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import { motion } from "framer-motion";
 import { staggerContainer, fadeIn } from "../utils/motion";
 import { TypingText, TitleText, Button } from "../components";
-import styles from "../styles";
+import styles from "../../styles";
 import { bestsellers } from "../constants";
 import Image from "next/image";
 
