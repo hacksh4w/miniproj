@@ -69,12 +69,16 @@ const Community = () => {
                     whileInView="show"
                     className="relative w-full h-[530px] mt-20 flex"
                 >
+
+                {/* 
                     <Image
-                        src="/mapSVG.svg"
+                        src="/world1.png"
                         alt="map"
                         fill
                         style={{ objectFit: "cover" }}
                     />
+                    */}
+                    
 
                     <motion.div
                         variants={item}

@@ -31,7 +31,7 @@
                 >
                     <div className="relative ss:h-[36px] ss:w-[37px] h-[25px] w-[27px]">
                         <Image
-                            src="/public/quote.svg"
+                            src="/logo.png"
                             alt="..."
                             fill    
                             style={{ objectFit: "contain" }}

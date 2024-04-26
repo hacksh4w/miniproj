@@ -51,7 +51,8 @@ const ShoppingCard = ({ index, img, title, amount, stars}) => {
                             </h1>
                             <p className="flex space-x-[3px] mt-[6px]">
                                 {arr.map((_, i) => (
-                                    <img key={i} src="/star.svg" alt="stars" />
+                                    <img key={i} src="/logo.png"
+                                     alt="stars" />
                                 ))}
                             </p>
                         </div>
@@ -74,7 +75,7 @@ const ShoppingCard = ({ index, img, title, amount, stars}) => {
                             href="go_to_page"
                             className="font-poppins font-normal text-lightBlue"
                         >
-                            Go to page
+                          
                         </a>
                     </div>
                 </div>

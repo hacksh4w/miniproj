@@ -38,19 +38,19 @@ export const stats = [
 export const benefits = [
     {
         id: "benefit-1",
-        img: "./warranty.svg",
+        img: "/logo.png",
         title: "Product warranty",
         text: "Extended warranty over the given company warranty.",
     },
     {
         id: "benefit-2",
-        img: "./support.svg",
+        img: "/logo.png",
         title: "Customer support",
         text: "24/7 support for all your queries and needs.",
     },
     {
         id: "benefit-3",
-        img: "./fast-delivery.svg",
+        img: "/logo.png",
         title: "Fast delivery",
         text: "Products reaches doorstep right on time, anywhere in the world.",
     },
