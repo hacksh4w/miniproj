@@ -1,8 +1,11 @@
 import React from 'react'
-
+import { imagecomp } from './component/imagecomp'
 const page = () => {
   return (
-    <div>page</div>
+    <div>page
+    <imagecomp />
+    </div>
+    
   )
 }
 
