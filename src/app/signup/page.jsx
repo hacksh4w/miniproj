@@ -1,8 +1,6 @@
-// pages/signup.js
-
 import Head from 'next/head';
 import Link from 'next/link';
-import styles from '../../../../styles/Signup.module.css';
+import styles from '../../../styles/Signup.module.css';
 
 export default function SignUp() {
   return (
@@ -12,8 +10,6 @@ export default function SignUp() {
         <meta name="description" content="Create a new account" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-
 
       <main className={styles.main}>
         <h1 className={styles.title}>
@@ -36,7 +32,7 @@ export default function SignUp() {
       </main>
 
       <footer className={styles.footer}>
-        This is your signup page footer.
+        EH
       </footer>
     </div>
   );

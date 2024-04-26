@@ -34,7 +34,7 @@ const Login = () => {
       </main>
 
       <footer className={styles.footer}>
-        This is your login page footer.
+        EH
       </footer>
     </div>
   );
