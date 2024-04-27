@@ -30,6 +30,9 @@ const HNavbar = () => {
                 <Link className="navbar__link relative" href="#">
                     HOT OFFERS
                 </Link>
+                <Link className="navbar__link relative" href="/bulk">
+                    BULK ORDER
+                </Link>
             </div>
         </div>
     </div>
