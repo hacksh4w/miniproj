@@ -60,7 +60,7 @@ const Navbar = ({ toggleNavBar, menuToggle }) => {
                lg:px-[30px] md:px-[15px] px-[10px] py-[10px] rounded-[10px] text-white 
                hover:scale-110 hover:shadow-lg transition transform duration-100 ease-in-out"
                 >
-                    <Link href="/login">Sign In</Link>
+                    <Link href="/loginoptions">Sign In</Link>
                 </button>
             </div>
 
