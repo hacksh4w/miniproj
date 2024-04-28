@@ -34,7 +34,7 @@ export default function Login() {
           position: 'top',
         });
         console.log(data)
-        router.push('/private');
+        router.push('/home');
       }
     } catch (error) {
       console.error('Sign in error:', error.message);
