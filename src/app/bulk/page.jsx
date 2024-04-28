@@ -6,6 +6,7 @@ import { supabase } from '../../utils/supabase.js';
 import "leaflet/dist/leaflet.css";
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
 import { Button } from '@/components';
+import { useRouter } from 'next/navigation';
 
 // Mock JSON data
 const jsonData = [
@@ -81,6 +82,7 @@ const Modal = ({ searchResults, onClose, onProceed }) => {
   );
 };
 const Bulk = () => {
+  const router = useRouter()
   const [itemId, setItemId] = useState('');
   const [quantity, setQuantity] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -198,10 +200,69 @@ const Bulk = () => {
     setIsModalOpen(false);
   };
 
-  const handleProceedToCheckout = () => {
-    // Implement logic for proceeding to checkout
-    // This function will be called when the "Proceed to Checkout" button is clicked in the modal
+  
+  const handleProceedToCheckout = async () => {
+    try {
+      // Update item quantities
+      const updates = searchResults.map(async (item) => {
+        // Fetch the original item data from the database
+        const { data: originalItem, error } = await supabase
+          .from('items')
+          .select('quantity')
+          .eq('id', item.id)
+          .single();
+        
+        if (error) {
+          throw error;
+        }
+  
+        if (!originalItem) {
+          throw new Error(`Item with id ${item.id} not found`);
+        }
+  
+        // Calculate the new quantity by subtracting item.quantity from the original quantity
+        const newQuantity = originalItem.quantity - item.quantity;
+  
+        // Update the item quantity in the items table
+        await supabase
+          .from('items')
+          .update({ quantity: newQuantity })
+          .eq('id', item.id);
+      });
+  
+      await Promise.all(updates);
+  
+      // Add rows to the orders table and notify user
+      // (Code for adding rows to orders table goes here...)
+      const orderInserts = searchResults.map(async (item) => {
+        // Calculate total price for the item
+        const totalPrice = item.quantity * item.price;
+  
+        // Add a new row to the orders table
+        await supabase
+          .from('orders')
+          .insert([
+            {
+              shop_name: item.brand,
+              tot_price: totalPrice,
+              status:'placed'
+            }
+          ]);
+      });
+  
+      await Promise.all(orderInserts);
+      alert('Order placed successfully!');
+      router.push('/orderconfirm')
+    } catch (error) {
+      console.error('Error proceeding to checkout:', error.message);
+      // Handle error
+    }
   };
+
+
+
+
+
   return (
     <div className="relative flex flex-col items-center justify-center mt-8">
       <h1 className="text-3xl font-bold mb-4 text-orange-500">Place Bulk Order!</h1>
