@@ -179,6 +179,10 @@ export const footerLinks = [
           link: "https://www.kart.com/explore/",
         },
         {
+          name: "Rentals",
+          link: "/home",
+        },
+        {
           name: "Terms & Services",
           link: "https://www.kart.com/terms-and-services/",
         },

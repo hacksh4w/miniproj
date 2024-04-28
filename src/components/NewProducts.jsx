@@ -1,5 +1,7 @@
-import React from "react";
+'use client'
+import React, {useEffect, useState} from "react";
 import ProductCard from "./ProductCard";
+import { supabase } from "../utils/supabase.js"; 
 
 const productsData = [
   {
@@ -54,12 +56,32 @@ const productsData = [
 ];
 
 const NewProducts = () => {
+  const [latestItems, setLatestItems] = useState([]);
+
+  // fn to obtain latest items from the database
+  useEffect(() => {
+    const fetchLatestItems = async () => {
+      try {
+        // Fetch data from the 'items' table in Supabase, top 10 items
+        const { data, error } = await supabase.from("items").select("*").order("updatedAt", { ascending: false }).limit(12);
+        if (error) {
+          throw error;
+        }
+        setLatestItems(data);
+      } catch (error) {
+        console.error("Error fetching latest items:", error.message);
+      }
+    };
+
+    fetchLatestItems();
+  }, []);
+
   return (
     <div className="container pt-16">
       <h2 className="font-medium text-2xl pb-4">New Products</h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 justify-items-center">
-        {productsData.map((item, index) => (
+        {latestItems.map((item, index) => (
           <ProductCard
             key={index}
             img={item.img}

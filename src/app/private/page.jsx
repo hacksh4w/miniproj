@@ -2,10 +2,9 @@ import { redirect } from 'next/navigation'
 import { supabase } from '@/utils/supabase.js'
 
 export default async function PrivatePage() {
-
   const { data, error } = await supabase.auth.getUser()
   if (error || !data?.user) {
-    redirect('/login')
+    redirect('/loginoptions')
   }
 
   return <p>Hello {data.user.email}</p>
