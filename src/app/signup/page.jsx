@@ -1,8 +1,37 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../../../styles/Signup.module.css';
+import { useRouter } from 'next/router';
+import { createClient } from '../../path/to/supabaseClient'; // Adjust the path as per your file structure
+
+const supabase = createClient();
 
 export default function SignUp() {
+  const router = useRouter();
+
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+    try {
+      const { user, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      if (error) {
+        throw error;
+      }
+      //update user profile data after sign-up
+   //   await supabase.from('users').update({ full_name: fullName }).eq('id', user.id);
+      router.push('/login');
+    } catch (error) {
+      console.error('Sign up error:', error.message);
+    }
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,10 +45,10 @@ export default function SignUp() {
           Create a New Account
         </h1>
 
-        <form className={styles.form}>
-          <input type="text" placeholder="Full Name" className={styles.input} />
-          <input type="email" placeholder="Email" className={styles.input} />
-          <input type="password" placeholder="Password" className={styles.input} />
+        <form className={styles.form} onSubmit={handleSignUp}>
+          <input type="text" placeholder="Full Name" className={styles.input} value={fullName} onChange={(e) => setFullName(e.target.value)} />
+          <input type="email" placeholder="Email" className={styles.input} value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input type="password" placeholder="Password" className={styles.input} value={password} onChange={(e) => setPassword(e.target.value)} />
           <button type="submit" className={styles.signUpButton}>Sign Up</button>
         </form>
 

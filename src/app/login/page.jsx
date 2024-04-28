@@ -4,12 +4,15 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../../../styles/Login.module.css';
 import {useRouter} from 'next/navigation'
-import { createClient } from '@supabase/supabase-js';
-const supabase = createClient('https://kyioaeboxgtgzbtypztn.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5aW9hZWJveGd0Z3pidHlwenRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQwOTgwNTQsImV4cCI6MjAyOTY3NDA1NH0.0KmR9sAOwZwinkPhFK1ecn7OSb7gi3XIM3ct6ikPrZA')
+import { createClient } from '../../utils/supabase/client.ts';
+
+const supabase = createClient();
+
 const Login = () => {
   const router = useRouter()
   const [Email,setEmail] = useState('')
   const [Pass,setPass]=useState('')
+
   const handleSignIn = async()=>{
     try {
       console.log("hi")
