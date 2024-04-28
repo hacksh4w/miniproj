@@ -1,13 +1,15 @@
+'use client' 
 import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../../../styles/Signup.module.css';
 import { useRouter } from 'next/router';
-import { createClient } from '../../path/to/supabaseClient'; // Adjust the path as per your file structure
+import { createClient } from '../../utils/supabase/client'; 
 
 const supabase = createClient();
 
 export default function SignUp() {
+  
   const router = useRouter();
 
   const [fullName, setFullName] = useState('');
@@ -25,7 +27,7 @@ export default function SignUp() {
         throw error;
       }
       //update user profile data after sign-up
-   //   await supabase.from('users').update({ full_name: fullName }).eq('id', user.id);
+   //   await supabase.from('profiles').update({ full_name: fullName }).eq('id', user.id);
       router.push('/login');
     } catch (error) {
       console.error('Sign up error:', error.message);

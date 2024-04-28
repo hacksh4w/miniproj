@@ -4,35 +4,46 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../../../styles/Login.module.css';
 import {useRouter} from 'next/navigation'
-import { createClient } from '../../utils/supabase/client.ts';
+import { supabase } from '../../utils/supabase.js';
 // import { login, signup } from './actions'  (this is from server le client, so use client eduthu kalayanam) 
 // all the functions that are in the actions file, so ivide, button de avide
 //      <button formAction={login}>Log in</button>
 //      <button formAction={signup}>Sign up</button>
 // ingane cheytha mathi 
-
-const supabase = createClient();
+import { useToast } from '@chakra-ui/react';
 
 const Login = () => {
   const router = useRouter()
-  const [Email,setEmail] = useState('')
-  const [Pass,setPass]=useState('')
+  const toast = useToast({});
+  const [email,setEmail] = useState('')
+  const [pass,setPass]=useState('')
 
   const handleSignIn = async()=>{
     try {
-      console.log("hi")
-      console.log(Email)
-      console.log(Pass)
+      console.log(email)
       const { data, error } = await supabase.auth.signInWithPassword({
-        email: Email,
-        password: Pass,
+        email: email,
+        password: pass,
       });
       if (data.user) { 
+        toast({
+          title: `Welcome ${data.user.email}`,
+          status: 'success',
+          isClosable: true,
+          position: 'top',
+        });
         console.log(data)
         router.push('/home');
       }
     } catch (error) {
       console.error('Sign in error:', error.message);
+      toast({
+        title: 'Signin Error',
+        description: error.message,
+        status: 'error',
+        isClosable: true,
+        position: 'top',
+      });
     }
   }
   return (
@@ -49,8 +60,8 @@ const Login = () => {
         </h1>
 
         <form className={styles.form}>
-          <input type="email" placeholder="Email" className={styles.input} value={Email} onChange={(e)=>setEmail(e.target.value)}/>
-          <input type="password" placeholder="Password" className={styles.input} value={Pass} onChange={(e)=>setPass(e.target.value)} />
+          <input type="email" placeholder="Email" className={styles.input} value={email} onChange={(e)=>setEmail(e.target.value)}/>
+          <input type="password" placeholder="Password" className={styles.input} value={pass} onChange={(e)=>setPass(e.target.value)} />
           
             <button type="button" className={styles.signInButton} onClick={handleSignIn}>Sign In</button>
           
