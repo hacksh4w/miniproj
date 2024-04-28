@@ -92,6 +92,8 @@ const Bulk = () => {
   useEffect(()=>{
     const fetchData = async()=>{
       const {data}=await supabase.from("items").select('*')
+      const {data:{user}}=await supabase.auth.getUser() 
+      console.log(user)
       console.log(data)
       setTotalData(data)
     }
