@@ -21,24 +21,22 @@ export default function Login() {
 
   const handleSignIn = async()=>{
     try {
-      if(email=="admin@gmail.com" && pass=="adminpass123") {
-        router.push('/signup');
-      }
-      else {
-      console.log(email)
+      console.log(email);
       const { data, error } = await supabase.auth.signInWithPassword({
         email: email,
         password: pass,
       });
-      }
-      if (data.user) { 
+    
+      if (data.user && data.user.email === 'admin@gmail.com') {
         toast({
           title: `Welcome Admin ${data.user.email}`,
           status: 'success',
           isClosable: true,
           position: 'top',
         });
-        console.log(data.email)
+        console.log(data.email);
+        router.push('/signup');
+      } else {
         router.push('/home');
       }
     } catch (error) {
