@@ -5,6 +5,11 @@ import Link from 'next/link';
 import styles from '../../../styles/Login.module.css';
 import {useRouter} from 'next/navigation'
 import { createClient } from '../../utils/supabase/client.ts';
+// import { login, signup } from './actions'  (this is from server le client, so use client eduthu kalayanam) 
+// all the functions that are in the actions file, so ivide, button de avide
+//      <button formAction={login}>Log in</button>
+//      <button formAction={signup}>Sign up</button>
+// ingane cheytha mathi 
 
 const supabase = createClient();
 
