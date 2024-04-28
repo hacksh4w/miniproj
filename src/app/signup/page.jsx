@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../../../styles/Signup.module.css';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { supabase } from '../../utils/supabase.js'; 
 import { useToast } from '@chakra-ui/react';
 ;

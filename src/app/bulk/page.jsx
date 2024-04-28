@@ -2,12 +2,10 @@
 import { useState, useEffect } from 'react';
 import { getDistance } from 'geolib';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '../../utils/supabase.js';
 import "leaflet/dist/leaflet.css";
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
 import { Button } from '@/components';
-
-const supabase = createClient('https://kyioaeboxgtgzbtypztn.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5aW9hZWJveGd0Z3pidHlwenRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTQwOTgwNTQsImV4cCI6MjAyOTY3NDA1NH0.0KmR9sAOwZwinkPhFK1ecn7OSb7gi3XIM3ct6ikPrZA')
 
 // Mock JSON data
 const jsonData = [
