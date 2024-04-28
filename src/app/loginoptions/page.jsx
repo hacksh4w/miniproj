@@ -10,17 +10,17 @@ export default function loginoptions() {
         <Stack spacing={8} direction='column' align='center'>
         <Link href="/login">
           <Button colorScheme='teal' variant='solid' size='lg' fontWeight={500}>
-              Sign in for Rentals
+              Sign in for Customers
             </Button>
             </Link>
             <Link href="/shoplogin">
             <Button colorScheme='teal' variant='solid' size='lg'  fontWeight={500}>
-              Sign in for Shops
+              Sign in for Shops & Shop Owners
             </Button>
             </Link>
             <Link href="/adminlogin">
             <Button colorScheme='teal' variant='solid' size='lg'fontWeight={500}>
-              Admin Login
+              Sign in for Admin
             </Button>
             </Link>
         </Stack>
