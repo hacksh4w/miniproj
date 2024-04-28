@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { getDistance } from 'geolib';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import { createClient } from '@supabase/supabase-js';
+// import { supabase } from '../../utils/supabase.js';
 import "leaflet/dist/leaflet.css";
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
 import { Button } from '@/components';

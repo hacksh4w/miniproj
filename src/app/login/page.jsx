@@ -3,16 +3,17 @@ import React, { useEffect, useState } from "react";
 import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../../../styles/Login.module.css';
-import {useRouter} from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { supabase } from '../../utils/supabase.js';
 // import { login, signup } from './actions'  (this is from server le client, so use client eduthu kalayanam) 
 // all the functions that are in the actions file, so ivide, button de avide
 //      <button formAction={login}>Log in</button>
 //      <button formAction={signup}>Sign up</button>
 // ingane cheytha mathi 
+
 import { useToast } from '@chakra-ui/react';
 
-const Login = () => {
+export default function Login() {
   const router = useRouter()
   const toast = useToast({});
   const [email,setEmail] = useState('')
@@ -33,7 +34,7 @@ const Login = () => {
           position: 'top',
         });
         console.log(data)
-        router.push('/home');
+        router.push('/private');
       }
     } catch (error) {
       console.error('Sign in error:', error.message);
@@ -81,5 +82,3 @@ const Login = () => {
     </div>
   );
 };
-
-export default Login;
