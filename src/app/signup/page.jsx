@@ -4,14 +4,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 import styles from '../../../styles/Signup.module.css';
 import { useRouter } from 'next/router';
-import { createClient } from '../../utils/supabase/client'; 
-
-const supabase = createClient();
+import { supabase } from '../../utils/supabase.js'; 
+import { useToast } from '@chakra-ui/react';
+;
 
 export default function SignUp() {
   
   const router = useRouter();
-
+  const toast = useToast();
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,6 +23,13 @@ export default function SignUp() {
         email,
         password,
       });
+      toast({
+        title: `check email for verification`,
+        status: "info",
+        isClosable: true,
+        position: "top",
+      });
+    console.log(user)
       if (error) {
         throw error;
       }
@@ -31,6 +38,13 @@ export default function SignUp() {
       router.push('/login');
     } catch (error) {
       console.error('Sign up error:', error.message);
+      toast({
+        title: 'Signup Error',
+        description: error.message,
+        status: 'error',
+        isClosable: true,
+        position: 'top',
+    });
     }
   };
 
