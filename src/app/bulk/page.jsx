@@ -9,6 +9,7 @@ import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
 import { Button } from '@/components';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@chakra-ui/react';
+import NewProducts from '../../components/NewProducts.jsx';
 // Mock JSON data
 const jsonData = [
   { itemId: 1, quantity: 300, location: { latitude: 37.7749, longitude: -122.4194 } }, // Store A (San Francisco)
@@ -19,7 +20,9 @@ const jsonData = [
 
 const MapComponent = ({ searchResults, userPos}) => {
   if (!searchResults.length) {
-    return null; // If searchResults is empty, don't render anything
+    return (
+      <NewProducts/>
+    ) // If searchResults is empty, don't render anything
   }
   if(userPos){
     console.log(userPos)
@@ -93,6 +96,7 @@ const Bulk = () => {
   const [userPos,setUserPos]=useState({})
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [numberOfDays, setNumberOfDays] = useState(1);
+  const [openRentSelected, setOpenRentSelected] = useState(false);
   useEffect(()=>{
     const fetchData = async()=>{
       const {data}=await supabase.from("items").select('*')
@@ -124,8 +128,13 @@ const Bulk = () => {
         longitude: item.longitude
       }
     }));
-    const filteredData = transformedData.filter(item => item.name === itemId);
-
+    let filteredData = []
+    if(openRentSelected){
+      filteredData = transformedData.filter(item => item.name === itemId && item.category === "rental");
+    }else{
+      filteredData = transformedData.filter(item => item.name === itemId && item.category === "sale")
+    }
+    
     // Sort filtered stores based on distance from user
     navigator.geolocation.getCurrentPosition(({coords})=>{
       const {latitude,longitude}=coords
@@ -280,8 +289,13 @@ const Bulk = () => {
       <div className="flex">
         <input className="p-2 mr-4 border border-gray-300 rounded-lg" type="text" placeholder="Item ID" value={itemId} onChange={e => setItemId(e.target.value)} />
         <input className="p-2 mr-4 border border-gray-300 rounded-lg" type="number" placeholder="Quantity" value={quantity} onChange={e => setQuantity(e.target.value)} />
-        <p className='mt-2 mr-2'>Days</p>
-        <input className="p-2 mr-4 border border-gray-300 rounded-lg" type="number" placeholder="No. of Days" value={numberOfDays} onChange={e => setNumberOfDays(e.target.value)} />
+        <label className="flex items-center">
+          <input type="checkbox" checked={openRentSelected} onChange={() => setOpenRentSelected(!openRentSelected)} />
+          <span className="ml-1 mr-2">Rent</span>
+        </label>
+        {openRentSelected && (
+          <input className="p-2 mr-4 border border-gray-300 rounded-lg" type="number" placeholder="No. of Days" value={numberOfDays} onChange={e => setNumberOfDays(e.target.value)} />
+        )}
         <button className="px-4 py-2 bg-orange-500 text-white rounded-lg" onClick={handleSearch}>Search</button>
         <button className="px-4 py-2 bg-orange-500 text-white rounded-lg ml-2" onClick={handleSortByPrice}>Sort by Price</button>
       </div>
