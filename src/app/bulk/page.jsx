@@ -8,7 +8,8 @@ import "leaflet/dist/leaflet.css";
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
 import { Button } from '@/components';
 import { useRouter } from 'next/navigation';
-
+import { useToast } from '@chakra-ui/react';
+import NewProducts from '../../components/NewProducts.jsx';
 // Mock JSON data
 const jsonData = [
   { itemId: 1, quantity: 300, location: { latitude: 37.7749, longitude: -122.4194 } }, // Store A (San Francisco)
@@ -19,7 +20,9 @@ const jsonData = [
 
 const MapComponent = ({ searchResults, userPos}) => {
   if (!searchResults.length) {
-    return null; // If searchResults is empty, don't render anything
+    return (
+      <NewProducts/>
+    ) // If searchResults is empty, don't render anything
   }
   if(userPos){
     console.log(userPos)
@@ -39,9 +42,10 @@ const MapComponent = ({ searchResults, userPos}) => {
         {searchResults.map((item, index) => (
           <CircleMarker key={index} center={[item.location.latitude, item.location.longitude]} fillColor="orange" opacity={1}>
             <Popup>
-              Item ID: {item.name}<br />
+              Item Name: {item.name}<br />
               Quantity: {item.quantity}<br />
               Location: {item.location.latitude}, {item.location.longitude}
+              Shop: {item.brand}
             </Popup>
           </CircleMarker>
         ))}
@@ -49,7 +53,7 @@ const MapComponent = ({ searchResults, userPos}) => {
     </div>
   );
 };
-const Modal = ({ searchResults, onClose, onProceed }) => {
+const Modal = ({ searchResults, onClose, onProceed, numberOfDays }) => {
   if(!searchResults.length){
     return null
   }
@@ -59,10 +63,10 @@ const Modal = ({ searchResults, onClose, onProceed }) => {
     // Calculate total price when searchResults change
     let totalPrice = 0;
     searchResults.forEach(item => {
-      totalPrice += item.quantity * item.price;
+      totalPrice += item.quantity * item.price * numberOfDays;
     });
     setTotalPrice(totalPrice);
-  }, [searchResults]);
+  }, [searchResults, numberOfDays]);
 
   return (
     <div className="w-full h-full flex items-center justify-center  bg-opacity-50 z-50">
@@ -70,7 +74,7 @@ const Modal = ({ searchResults, onClose, onProceed }) => {
         <h2 className="text-2xl font-bold mb-4">Order Details</h2>
         {searchResults.map((item, index) => (
           <div key={index} className="mb-4">
-            <p>{item.name} - Quantity: {item.quantity} - Total Item Price: INR {item.quantity * item.price}</p>
+            <p>{item.name} - Quantity: {item.quantity} - Total Item Price: INR {item.quantity * item.price * numberOfDays}</p>
           </div>
         ))}
         <p className="font-bold">Total Price: INR {totalPrice}</p>
@@ -83,6 +87,7 @@ const Modal = ({ searchResults, onClose, onProceed }) => {
   );
 };
 const Bulk = () => {
+  const toast = useToast({})
   const router = useRouter()
   const [itemId, setItemId] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -90,6 +95,8 @@ const Bulk = () => {
   const [totalData,setTotalData]=useState([])
   const [userPos,setUserPos]=useState({})
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [numberOfDays, setNumberOfDays] = useState(1);
+  const [openRentSelected, setOpenRentSelected] = useState(false);
   useEffect(()=>{
     const fetchData = async()=>{
       const {data}=await supabase.from("items").select('*')
@@ -121,8 +128,13 @@ const Bulk = () => {
         longitude: item.longitude
       }
     }));
-    const filteredData = transformedData.filter(item => item.name === itemId);
-
+    let filteredData = []
+    if(openRentSelected){
+      filteredData = transformedData.filter(item => item.name === itemId && item.category === "rental");
+    }else{
+      filteredData = transformedData.filter(item => item.name === itemId && item.category === "sale")
+    }
+    
     // Sort filtered stores based on distance from user
     navigator.geolocation.getCurrentPosition(({coords})=>{
       const {latitude,longitude}=coords
@@ -148,7 +160,14 @@ const Bulk = () => {
         remainingQuantity -= store.quantity;
       }
     });
-
+    if(remainingQuantity!=0){
+      toast({
+        title: 'Sorry! We dont have ample stock to meet your requirements. But we have curated the available stock for you! ',
+        status: 'success',
+        isClosable: true,
+        position: 'top',
+      });
+    }
     setSearchResults(selectedStores);
   };
   const handleSortByPrice = ()=>{
@@ -237,7 +256,7 @@ const Bulk = () => {
       // (Code for adding rows to orders table goes here...)
       const orderInserts = searchResults.map(async (item) => {
         // Calculate total price for the item
-        const totalPrice = item.quantity * item.price;
+        const totalPrice = item.quantity * item.price * numberOfDays;
   
         // Add a new row to the orders table
         await supabase
@@ -270,6 +289,13 @@ const Bulk = () => {
       <div className="flex">
         <input className="p-2 mr-4 border border-gray-300 rounded-lg" type="text" placeholder="Item ID" value={itemId} onChange={e => setItemId(e.target.value)} />
         <input className="p-2 mr-4 border border-gray-300 rounded-lg" type="number" placeholder="Quantity" value={quantity} onChange={e => setQuantity(e.target.value)} />
+        <label className="flex items-center">
+          <input type="checkbox" checked={openRentSelected} onChange={() => setOpenRentSelected(!openRentSelected)} />
+          <span className="ml-1 mr-2">Rent</span>
+        </label>
+        {openRentSelected && (
+          <input className="p-2 mr-4 border border-gray-300 rounded-lg" type="number" placeholder="No. of Days" value={numberOfDays} onChange={e => setNumberOfDays(e.target.value)} />
+        )}
         <button className="px-4 py-2 bg-orange-500 text-white rounded-lg" onClick={handleSearch}>Search</button>
         <button className="px-4 py-2 bg-orange-500 text-white rounded-lg ml-2" onClick={handleSortByPrice}>Sort by Price</button>
       </div>
@@ -279,7 +305,7 @@ const Bulk = () => {
       }
      <div className='m-4'></div>
       {
-        isModalOpen && <Modal searchResults={searchResults} onClose={handleCloseModal} onProceed={handleProceedToCheckout} />
+        isModalOpen && <Modal searchResults={searchResults} onClose={handleCloseModal} onProceed={handleProceedToCheckout} numberOfDays={numberOfDays}/>
       }
       <div className='m-2'></div>
     </div>

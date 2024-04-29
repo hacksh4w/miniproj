@@ -1,6 +1,6 @@
 import React from 'react';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import Image from 'next/image'; // Import next/image component
+import { Box, Image } from '@chakra-ui/react';
 
 const ProductCard = ({ img, type, desc, price, rating, title }) => {
   const generateRating = (rating) => {
@@ -9,10 +9,19 @@ const ProductCard = ({ img, type, desc, price, rating, title }) => {
 
   return (
     <div className='px-4 border border-orange-500 rounded-xl max-w-[400]'>
-      <div>
-        {/* Use next/image component */}
-        <Image className='w-full h-auto cursor-pointer' src={img} alt={title} width={200} height={300} />
-      </div>
+      <Box boxSize='xs' justify='center' align='center'             
+        w={200}
+        h={300}>
+        <Image  
+            m={2}
+            pt={3}
+            objectFit='cover' 
+            boxSize='180px'
+            key={img} 
+            src={img} 
+            fallbackSrc='https://via.placeholder.com/150'
+            alt='Product Image Card' />
+      </Box>    
       <div className='space-y-2 py-2'>
         <h2 className='text-orange-400 uppercase text-center font-bold'>{title}</h2>
         <h2 className='text-orange-400 uppercase text-center font-bold'>{type}</h2>
