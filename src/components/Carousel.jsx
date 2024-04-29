@@ -34,7 +34,7 @@ const Carousel = ({ images, autoSlide = false, autoSlideInterval = 5000 }) => {
             >
                 {images.map((img) => (
                     <div key={img} className="flex-shrink-0 w-full justify-center">
-                    <Box boxSize='sm'>
+                    <Box boxSize='md'>
                         <Image  
                             objectFit='cover' 
                             boxSize='400px'
