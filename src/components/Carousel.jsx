@@ -35,7 +35,15 @@ const Carousel = ({ images, autoSlide = false, autoSlideInterval = 5000 }) => {
                 {images.map((img) => (
                     <div key={img} className="flex-shrink-0 w-full justify-center">
                     <Box boxSize='sm'>
-                        <Image Key={img} src='https://bit.ly/dan-abramov' alt='Dan Abramov' />
+                        <Image  
+                            objectFit='cover' 
+                            align='center'
+                            justify='center'
+                            boxSize='400px'
+                            key={img} 
+                            src='https://bit.ly/dan-abramov' 
+                            fallbackSrc='https://via.placeholder.com/150'
+                            alt='Dan Abramov' />
                     </Box>    
                    {/*} <img
                             key={img}
