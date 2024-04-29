@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 import React from "react";
 import {motion} from 'framer-motion'
 import {fadeIn } from "../utils/motion";
-import { Image, Box } from '@chakra-ui/react'
+import { Flex, Button, Image, Box } from '@chakra-ui/react'
+import { ArrowBackIcon , ArrowForwardIcon }from '@chakra-ui/icons'
+import { BsJustify } from "react-icons/bs";
 
 const Carousel = ({ images, autoSlide = false, autoSlideInterval = 5000 }) => {
     const [curr, setCurr] = useState(0);
@@ -34,11 +36,13 @@ const Carousel = ({ images, autoSlide = false, autoSlideInterval = 5000 }) => {
             >
                 {images.map((img) => (
                     <div key={img} className="flex-shrink-0 w-full justify-center">
-                    <Box boxSize='md'>
+                    <Box boxSize='md' justify='center' align='center' >
                         <Image  
                             objectFit='cover' 
                             boxSize='400px'
                             key={img} 
+                            mx={4}
+                            pl={6}
                             src='https://bit.ly/dan-abramov' 
                             fallbackSrc='https://via.placeholder.com/150'
                             alt='Dan Abramov' />
@@ -51,15 +55,31 @@ const Carousel = ({ images, autoSlide = false, autoSlideInterval = 5000 }) => {
                     </div>
                 ))}
             </div>
+            <Flex
+                pos="absolute"
+                inset={0}
+                alignItems="center"
+                justifyContent="space-between"
+                p={{ base: 4, xs: 0 }}
+                m={2}
+            >
+                <Button onClick={prev}>
+                    <ArrowBackIcon w={8} h={8} color="red.500" />
+                </Button>
 
-            <div className="absolute inset-0 flex item-center justify-between xs:p-4 p-0">
-                <button onClick={prev}>
-                    <img src="/prev.svg" className="sm:h-auto ss:h-[20px] h-[15px]"/>
-                </button>
-                <button onClick={next}>
-                    <img src="/next.svg" className="sm:h-auto ss:h-[20px] h-[15px]"/>{" "}
-                </button>
-            </div>
+                <Button onClick={next}>
+                    <ArrowForwardIcon w={8} h={8} color="red.500" />
+                </Button>
+            </Flex>
+          
+          {/*}  <div className="absolute inset-0 flex item-center justify-between xs:p-4 p-0">
+                <Button onClick={prev}>
+                <ArrowBackIcon  w={8} h={8} color="red.500" />
+                </Button>
+                <Button onClick={next} justify='center' >
+                    <ArrowForwardIcon w={8} h={8} color="red.500" />
+                </Button>
+            </div> */}
 
             <div className="absolute bottom-0 right-0 left-0">
                 <div className="flex items-center justify-center gap-2">
