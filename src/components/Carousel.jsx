@@ -37,8 +37,6 @@ const Carousel = ({ images, autoSlide = false, autoSlideInterval = 5000 }) => {
                     <Box boxSize='sm'>
                         <Image  
                             objectFit='cover' 
-                            align='center'
-                            justify='center'
                             boxSize='400px'
                             key={img} 
                             src='https://bit.ly/dan-abramov' 
