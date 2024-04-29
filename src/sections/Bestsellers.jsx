@@ -1,17 +1,36 @@
 "use client";
 
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { motion } from "framer-motion";
 import { staggerContainer, fadeIn } from "../utils/motion";
 import { TypingText, TitleText, Button } from "../components";
 import styles from "../../styles";
 import { bestsellers } from "../constants";
 import Image from "next/image";
+import { supabase } from "../utils/supabase.js"; 
 
 const ShoppingCard = ({ index, img, title, amount, stars}) => {
 
     const arr = [...Array(stars).keys()];
+    const [bestsellers, setBestsellers] = useState([]);
+    //key is product id
 
+    // fn to obtain bestseller items from the database
+    useEffect(() => {
+      const fetchBestsellers = async () => {
+        try {
+          // Fetch data from the 'items' table in Supabase, top 5 best selling items
+          const { data, error } = await supabase.from("items").select("*").order("sales", { ascending: false }).limit(5);
+          if (error) {
+            throw error;
+          }
+          setBestsellers(data);
+        } catch (error) {
+          console.error("Error fetching bestseller items:", error.message);
+        }
+      };
+      fetchBestsellers();
+    }, []);
     return (
         <motion.div
 
@@ -54,6 +73,11 @@ const ShoppingCard = ({ index, img, title, amount, stars}) => {
                                     <img key={i} src="/logo.png"
                                      alt="stars" />
                                 ))}
+                                {/* Display bestsellers
+                                {bestsellers.map((_, i) => (
+                                    <img key={i} src="/logo.png"
+                                     alt="stars" />
+                                ))} */}
                             </p>
                         </div>
                         <p className="font-poppins text-[18px] font-bold text-darkBlue">

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import React from "react";
 import {motion} from 'framer-motion'
 import {fadeIn } from "../utils/motion";
+import { Image, Box } from '@chakra-ui/react'
 
 const Carousel = ({ images, autoSlide = false, autoSlideInterval = 5000 }) => {
     const [curr, setCurr] = useState(0);
@@ -33,11 +34,22 @@ const Carousel = ({ images, autoSlide = false, autoSlideInterval = 5000 }) => {
             >
                 {images.map((img) => (
                     <div key={img} className="flex-shrink-0 w-full justify-center">
-                        <img
+                    <Box boxSize='sm'>
+                        <Image  
+                            objectFit='cover' 
+                            align='center'
+                            justify='center'
+                            boxSize='400px'
+                            key={img} 
+                            src='https://bit.ly/dan-abramov' 
+                            fallbackSrc='https://via.placeholder.com/150'
+                            alt='Dan Abramov' />
+                    </Box>    
+                   {/*} <img
                             key={img}
                             src={img}
                             className="ss:w-[440px] xs:w-[300px] w-[240px] mx-auto"
-                        />
+                /> */}
                     </div>
                 ))}
             </div>

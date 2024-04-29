@@ -164,7 +164,7 @@ export const footerLinks = [
       links: [
         {
           name: "About us",
-          link: "https://www.kart.com/content/",
+          link: "/dateam",
         },
         {
           name: "Explore",
@@ -172,7 +172,7 @@ export const footerLinks = [
         },
         {
           name: "Bestsellers",
-          link: "https://www.kart.com/#featured",
+          link: "/#featured",
         },
         {
           name: "Refund policy",
@@ -180,7 +180,7 @@ export const footerLinks = [
         },
         {
           name: "Rentals",
-          link: "/home",
+          link: "/landing",
         },
         {
           name: "Terms & Services",
