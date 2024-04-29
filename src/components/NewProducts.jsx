@@ -44,6 +44,16 @@ const NewProducts = () => {
             price={item.price}
           />
         ))}
+        {productsData.map((item, index) => (
+          <ProductCard
+            key={index}
+            img={item.imageUrl[0]}
+            title={item.name}
+            desc={item.desc}
+            rating={item.rating}
+            price={item.price}
+          />
+        ))}
       </div> )}
     </div> 
   );
