@@ -44,6 +44,7 @@ const NewProducts = () => {
             price={item.price}
           />
         ))}
+        {/*}
         {productsData.map((item, index) => (
           <ProductCard
             key={index}
@@ -53,7 +54,7 @@ const NewProducts = () => {
             rating={item.rating}
             price={item.price}
           />
-        ))}
+        ))} */}
       </div> )}
     </div> 
   );
