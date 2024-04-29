@@ -1,36 +1,41 @@
-// import { createClient } from "@supabase/supabase-js"
+"use client";
+import {Container, Box, Flex, Heading, Button, Spacer, Center} from "@chakra-ui/react";
+import {supabase} from "../../../utils/supabase";
 
 const page = () => {
-  // const supabase = createClient();
-
   return (
-    <>
-      <div className="max-w-md mx-auto mt-10 p-6 bg-gray-100 rounded-lg shadow-xl">
-        <h1 className="text-2xl font-semibold mb-4">Profile Information</h1>
-        <hr />
-        {/* {profileData && ( */}
-        <div>
-          <div className="mb-4">
-            <p className="font-semibold">Name:</p>
-            {/* <p>{profileData.name}</p> */}
-          </div>
-          <div className="mb-4">
-            <p className="font-semibold">Phone Number:</p>
-            {/* <p>{profileData.phone_number}</p> */}
-          </div>
-          <div className="mb-4">
-            <p className="font-semibold">Address:</p>
-            {/* <p>{profileData.address}</p> */}
-          </div>
-          <div className="mb-4">
-            <p className="font-semibold">Role:</p>
-            {/* <p>{profileData.role}</p> */}
-          </div>
-        </div>
-        {/* )} */}
-      </div>
-    </>
+    <Center h="100vh">
+      <Container
+        maxW="90vw"
+        bg="white"
+        border="2px"
+        borderColor="orange"
+        borderRadius="md"
+        p="4"
+      >
+        <Flex
+          direction={["column", "row"]}
+          gap={["2", "10"]}
+          alignItems="flex-start"
+          pt={2}
+        >
+          <Box p="2">
+            <Heading size="lg">Profile Information</Heading>
+            <Box mt="4" gap="2">
+              <p>Name: </p>
+              <p>Role: </p>
+              <p>Email: </p>
+              <p>Phone Number: </p>
+              <p>Address: </p>
+            </Box>
+          </Box>
+          <Spacer />
+          <Button colorScheme="orange" variant="outline" size="sm" mt={[4, 0]}>
+            Edit Details
+          </Button>
+        </Flex>
+      </Container>
+    </Center>
   );
 };
-
 export default page;
