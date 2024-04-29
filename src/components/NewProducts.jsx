@@ -57,7 +57,7 @@ const productsData = [
 
 const NewProducts = () => {
   const [latestItems, setLatestItems] = useState([]);
-
+  //key is product id
   // fn to obtain latest items from the database
   useEffect(() => {
     const fetchLatestItems = async () => {
@@ -82,6 +82,16 @@ const NewProducts = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 justify-items-center">
         {latestItems.map((item, index) => (
+          <ProductCard
+            key={index}
+            img={item.img}
+            type={item.type}
+            desc={item.desc}
+            rating={item.rating}
+            price={item.price}
+          />
+        ))}
+        {productsData.map((item, index) => (
           <ProductCard
             key={index}
             img={item.img}
