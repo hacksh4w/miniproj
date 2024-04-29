@@ -8,7 +8,7 @@ import "leaflet/dist/leaflet.css";
 import 'tailwindcss/tailwind.css'; // Import Tailwind CSS
 import { Button } from '@/components';
 import { useRouter } from 'next/navigation';
-
+import { useToast } from '@chakra-ui/react';
 // Mock JSON data
 const jsonData = [
   { itemId: 1, quantity: 300, location: { latitude: 37.7749, longitude: -122.4194 } }, // Store A (San Francisco)
@@ -39,9 +39,10 @@ const MapComponent = ({ searchResults, userPos}) => {
         {searchResults.map((item, index) => (
           <CircleMarker key={index} center={[item.location.latitude, item.location.longitude]} fillColor="orange" opacity={1}>
             <Popup>
-              Item ID: {item.name}<br />
+              Item Name: {item.name}<br />
               Quantity: {item.quantity}<br />
               Location: {item.location.latitude}, {item.location.longitude}
+              Shop: {item.brand}
             </Popup>
           </CircleMarker>
         ))}
@@ -83,6 +84,7 @@ const Modal = ({ searchResults, onClose, onProceed, numberOfDays }) => {
   );
 };
 const Bulk = () => {
+  const toast = useToast({})
   const router = useRouter()
   const [itemId, setItemId] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -149,7 +151,14 @@ const Bulk = () => {
         remainingQuantity -= store.quantity;
       }
     });
-
+    if(remainingQuantity!=0){
+      toast({
+        title: 'Sorry! We dont have ample stock to meet your requirements. But we have curated the available stock for you! ',
+        status: 'failure',
+        isClosable: true,
+        position: 'top',
+      });
+    }
     setSearchResults(selectedStores);
   };
   const handleSortByPrice = ()=>{
