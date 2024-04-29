@@ -154,7 +154,7 @@ const Bulk = () => {
     if(remainingQuantity!=0){
       toast({
         title: 'Sorry! We dont have ample stock to meet your requirements. But we have curated the available stock for you! ',
-        status: 'failure',
+        status: 'success',
         isClosable: true,
         position: 'top',
       });
