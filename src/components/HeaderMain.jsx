@@ -12,7 +12,7 @@ const HeaderMain = () => {
     <div className="border-b border-orange-300 py-6">
       <div className="container sm:flex justify-between items-center">
         <div className="font-bold text-4xl text-center pb-4 sm:pb-0 text-blackish">
-          <Link href="/">Ensamble Havennnnn</Link>
+          <Link href="#">Ensamble Havennnnn</Link>
         </div>
 
         <div className="w-full sm:w-[300px] md:w-[70%] relative">
@@ -45,11 +45,20 @@ const HeaderMain = () => {
           <Link href="#">
           <HiOutlineShoppingBag />
           </Link>
-            
+                
             <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
               0
             </div>
           </div>
+
+          <div className="hidden lg:flex gap-5 text-gray-500 text-[20px]">
+          <Link href="/">
+          <p>Logout</p>
+          </Link>
+
+        
+          </div>
+
         </div>
       </div>
     </div>
