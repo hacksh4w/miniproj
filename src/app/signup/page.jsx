@@ -76,9 +76,6 @@ export default function SignUp() {
         </p>
       </main>
 
-      <footer className={styles.footer}>
-        EH
-      </footer>
     </div>
   );
 }

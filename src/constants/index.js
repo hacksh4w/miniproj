@@ -26,7 +26,7 @@ export const stats = [
     {
         if: "stat2",
         number: "1M+",
-        title: "Happy Customers",
+        title: "Happy Customer",
     },
     {
         if: "stat3",
