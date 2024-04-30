@@ -17,21 +17,19 @@ import {
   DrawerCloseButton,
 } from '@chakra-ui/react'
 import { supabase } from "@/utils/supabase";
-import { useUser } from "@/contexts/UserContext";
+import { useProfile } from "@/contexts/ProfileContext";
 
 const HeaderMain = () => {
   const toast = useToast({});
   const { isOpen, onOpen, onClose } = useDisclosure();
   const drawerRef = useRef();
-  
+  const { profileData } = useProfile();
 
- // const { userID } = useUser();
   const [cartItems,setCartItems]= useState([])
   const [productId, setProductId] = useState('');
   const [quantity, setQuantity] = useState('');
   const [price, setPrice] = useState('');
-  const [total, setTotal] = useState('');  
-  const [userID, setUserID] = useState('');
+  const [totalPrice, setTotalPrice] = useState(0);  
 
   useEffect(() => {
     fetchCartItems(); // Fetch cart items when the drawer opens
@@ -41,15 +39,37 @@ const HeaderMain = () => {
     try {
       // Fetch cart items from Supabase
      // const { data : { userID } } = await supabase.auth.getUser();
-     console.log(userID.id)
-      const { data, error } = await supabase.from("cart").select("*").eq("user_id", userID.id);
+      //console.log(userID.id)
+      const { data, error } = await supabase.from("cartItems").select('*')
+      //.eq('user_id', profileData.id);
       if (error) throw error;
+      
       setCartItems(data);
-
+      console.log(cartItems)
       // Calculate total price
-      const sum = data.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      const sum = data.reduce((acc, item) => acc + item.cost * item.quantity, 0);
       const tax = sum * 0.03;
       setTotalPrice(sum + tax);
+      console.log(sum)
+      console.log(tax)
+      console.log(totalPrice)
+      if (cartItems.length > 0) {
+      toast({
+        title: "Success",
+        description: "Items fetched",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      } else { 
+        toast({
+          title: "NIL",
+          description: "Empty Cart",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+        });
+      } 
     } catch (error) {
       console.error("Error fetching cart items:", error.message);
       toast({
@@ -61,36 +81,6 @@ const HeaderMain = () => {
       });
     }
   };
-  const handleAddToCart = async()=>{
-    try {
-      const updatedDataCart = { ...dataCart, adopter_id: userID }
-      setDataCart(updatedDataCart);
-      console.log(dataCart)
-      const { error } = await supabase
-          .from('Cart')
-          .insert([updatedDataCart])
-
-      if (error) {
-          throw error;
-      }
-      console.log(error)
-      toast({
-          title: "Added Item to Cart",
-          status: "success",
-          isClosable: true,
-          position: "top"
-      });
-      onClose(); 
-
-    } catch (error) {
-      toast({
-        title: "Failed to add item",
-        status: "error",
-        isClosable: true,
-        position: "top"
-    });
-    }
-    ;}
   return (
     <div className="border-b border-orange-300 py-6">
       <div className="container sm:flex justify-between items-center">

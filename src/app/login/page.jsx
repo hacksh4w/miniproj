@@ -10,7 +10,7 @@ import { supabase } from '../../utils/supabase.js';
 //      <button formAction={login}>Log in</button>
 //      <button formAction={signup}>Sign up</button>
 // ingane cheytha mathi 
-
+import { useProfile } from '../../contexts/ProfileContext';
 import { useToast } from '@chakra-ui/react';
 
 export default function Login() {
@@ -19,6 +19,7 @@ export default function Login() {
   const [email,setEmail] = useState('')
   const [pass,setPass]=useState('')
   const [UserID, setUSerID] = useState('')
+  const { setProfileData } = useProfile();
 
   const handleSignIn = async()=>{
     try {
@@ -27,23 +28,23 @@ export default function Login() {
         email: email,
         password: pass,
       });
-      
-      if (data) { 
-        const { data: profileData, error: profileError } = await supabase
-        .from('profile')
-        .select('id, role')
-        .eq('email', email)
-        .single();
+      if (error) throw error;
 
-        if (profileError) {
-          throw profileError;
-        }
-
-        if (profileData) {
-           console.log('User ID:', profileData.id);
-           console.log('User Role:', profileData.role);
-          router.push('/home');
-        }
+      if (data) {
+          const { data: profileData, error: profileError } = await supabase
+            .from('profile')
+            .select('id, role')
+            .eq('email', email)
+            .single();
+  
+          if (profileError) throw profileError;
+  
+          if (profileData) {
+            setProfileData(profileData);
+            console.log(profileData);
+            console.log(data.id);
+            router.push('/home');
+          }
       };
     } catch (error) {
       console.error('Sign in error:', error.message);

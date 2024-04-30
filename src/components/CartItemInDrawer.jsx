@@ -3,6 +3,8 @@
 import { Box, Button, Text } from "@chakra-ui/react";
 import Image from "next/image";
 import { supabase } from "../utils/supabase";
+import { useShoppingCart } from "use-shopping-cart";
+
 const CartItemInDrawer = ({ item }) => {
   const { removeItem } = useShoppingCart();
 

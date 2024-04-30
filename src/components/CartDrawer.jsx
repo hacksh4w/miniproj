@@ -4,13 +4,14 @@ import { useEffect, useState } from "react";
 import { Grid, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Button, useToast } from "@chakra-ui/react";
 import { supabase } from "../utils/supabase"; 
 import CartItemInDrawer from "./CartItemInDrawer"; 
-import { useUser } from "../contexts/UserContext";
+//import { useUser } from "../contexts/UserContext";
+import { useProfile } from "../contexts/ProfileContext";
 
 function CartDrawer({ isOpen, onClose }) {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const toast = useToast();
-    const { cartUserID } = useUser();
+    const { cartUser } = useProfile();
   useEffect(() => {
     fetchCartItems(); // Fetch cart items whenever the drawer opens
   }, [isOpen]);
@@ -21,10 +22,16 @@ function CartDrawer({ isOpen, onClose }) {
       const { data, error } = await supabase
         .from("cartItems")
         .select("*")
-        .eq("user_id", cartUserID);
+        .eq("user_id", cartUser.id());
       if (error) throw error;
       setCartItems(data);
-      
+      toast({
+        title: "Success",
+        description: "Fetch cart items.",
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
       // Calculate total price
       const sum = data.reduce((acc, item) => acc + item.price * item.quantity, 0);
       const tax = sum * 0.03;
@@ -49,11 +56,15 @@ function CartDrawer({ isOpen, onClose }) {
         <DrawerHeader>Your Cart</DrawerHeader>
 
         <DrawerBody>
-          <Grid templateColumns="repeat(2, 1fr)">
-            {cartItems?.map((item) => (
-              <CartItemInDrawer key={item.id} item={item} />
-            ))}
-          </Grid>
+          {cartItems.length > 0 ? (
+            <Grid templateColumns="repeat(2, 1fr)">
+              {cartItems.map((item) => (
+                <CartItemInDrawer key={item.id} item={item} />
+              ))}
+            </Grid>
+          ) : (
+            <p>No items in the cart</p>
+          )}
         </DrawerBody>
         
         <DrawerFooter>
