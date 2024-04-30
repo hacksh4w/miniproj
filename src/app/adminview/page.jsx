@@ -71,7 +71,7 @@ const shop = ({ params }) => {
         alignItems="center"
         bgGradient="linear(to-t, yellow.400, orange.400)"
       >
-        {shopData && (
+        {adminData && (
           <Flex
             minW="80%"
             bg="white"
@@ -84,7 +84,7 @@ const shop = ({ params }) => {
           >
             <Box flex="row" w="1/3">
               <Image
-                src='admin'
+                src='../../../public/admin.jpg'
                 alt="Shop Image"
                 boxSize={{ base: "200px", md: "300px" }}
                 objectFit="contain"
