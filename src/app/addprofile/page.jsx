@@ -7,7 +7,7 @@ import {useProfile} from '@/contexts/ProfileContext';
 
 const Page = () => {
     const toast = useToast();
-    const {userID } = useProfile();
+    const { userID } = useProfile();
     const [userData, setUserData] = useState({
         country: '',
         email: '',
@@ -19,7 +19,10 @@ const Page = () => {
 
     const handleSubmit = async () => {
         try {
-            console.log(userID.id)
+           /* if (!userID) {
+                throw new Error('User ID is undefined');
+            } */
+          //  console.log(userID.id)
             console.log(userData)
             // Add additional fields to userData before insertion
             const userDataWithExtraFields = {
