@@ -8,6 +8,8 @@ import styles from "../../styles";
 import { bestsellers } from "../constants";
 import Image from "next/image";
 import { supabase } from "../utils/supabase.js"; 
+import Link from "next/link";
+import { Box } from '@chakra-ui/react' 
 
 const ShoppingCard = ({ index, img, title, amount, stars}) => {
 
@@ -69,10 +71,7 @@ const ShoppingCard = ({ index, img, title, amount, stars}) => {
                                 {title}
                             </h1>
                             <p className="flex space-x-[3px] mt-[6px]">
-                                {arr.map((_, i) => (
-                                    <img key={i} src="/logo.png"
-                                     alt="stars" />
-                                ))}
+                            ⭐⭐⭐⭐⭐
                                 {/* Display bestsellers
                                 {bestsellers.map((_, i) => (
                                     <img key={i} src="/logo.png"
@@ -87,20 +86,13 @@ const ShoppingCard = ({ index, img, title, amount, stars}) => {
 
                     {/* buttons */}
                     <div className="flex mt-[25px] justify-between items-center">
-                        <button
-                            className=" font-poppins font-semibold p-[2px]
-                      text-darkBlue rounded-[10px] button-gradient"
-                        >
-                            <div className="w-full h-full bg-white py-[8px] px-[15px] rounded-[8px]">
-                                Shop now
-                            </div>
-                        </button>
-                        <a
-                            href="go_to_page"
-                            className="font-poppins font-normal text-lightBlue"
-                        >
-                          
-                        </a>
+                    <button className={`button-gradient xs:px-[20px] px-[30px] py-[5px]
+        rounded-[10px] text-white font-poppins font-semibold xs:text-[18px] 
+        text-[16px] hover:scale-105 hover:shadow-lg transition
+        transform duration-100 ease-in-out ${styles}`}>
+      <Link href='/loginoptions'> Shop Now
+      </Link> 
+    </button>
                     </div>
                 </div>
             </div>
@@ -141,7 +133,7 @@ const Bestsellers = () => {
                     variants={fadeIn("up", "spring", 0, 1)}
                     className="mt-[45px]"
                 >
-                    <Button text="More products" styles="" />
+                    
                 </motion.div>
             </motion.div>
         </section>

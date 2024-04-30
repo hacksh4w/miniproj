@@ -85,10 +85,6 @@ export default function Login() {
           </Link>
         </p>
       </main>
-
-      <footer className={styles.footer}>
-        EH
-      </footer>
     </div>
   );
 };

@@ -8,8 +8,9 @@ import {
   Image,
   SimpleGrid,
   Text,
-  Tag
+  Tag,
 } from "@chakra-ui/react";
+import Link from 'next/link'
 import { supabase } from "../../../utils/supabase";
 import { useState, useEffect } from "react";
 
@@ -110,26 +111,38 @@ const shop = ({ params }) => {
           </Flex>
         )}
 
-<br />    
-<Heading size={{base: "sm", md:"md"}} mb='10px' >Available Products</Heading>
+        <br />
+        <Heading size={{ base: "sm", md: "md" }} mb="10px">
+          Available Products
+        </Heading>
         <SimpleGrid columns={{ base: 1, md: 4 }} spacing="8">
           {items.map((item, index) => (
-            <Box key={index} p="4" borderWidth="1px" borderRadius="lg" bg="white">
-              <Image
-                src={item.imageUrl}
-                alt="Product Image"
-                boxSize={{ base: "250px", md: "300px" }}
-                objectFit="cover"
-                rounded="lg"
-              />
-              <br />
-              <Text fontWeight="bold">{item.name}</Text>               
-              <Tag colorScheme="yellow">{item.category}</Tag>
+            <Link key={item.id} href={`/item/${item.id}`}>
+              
+                <Box
+                  key={index}
+                  p="4"
+                  borderWidth="1px"
+                  borderRadius="lg"
+                  bg="white"
+                >
+                  <Image
+                    src={item.imageUrl}
+                    alt="Product Image"
+                    boxSize={{ base: "250px", md: "300px" }}
+                    objectFit="cover"
+                    rounded="lg"
+                  />
+                  <br />
+                  <Text fontWeight="bold">{item.name}</Text>
+                  <Tag colorScheme="yellow">{item.category}</Tag>
 
-              <Text>{item.description}</Text>
-              <p>Rating: {item.rating}/5</p>
-              <Text>Price: Rs. {item.price}</Text>
-            </Box>
+                  <Text>{item.description}</Text>
+                  <p>Rating: {item.rating}/5</p>
+                  <Text>Price: Rs. {item.price}</Text>
+                </Box>
+              
+            </Link>
           ))}
         </SimpleGrid>
       </Container>
