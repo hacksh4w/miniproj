@@ -1,5 +1,5 @@
 "use client";
-import { Navbar } from "../../../components";
+import { Navbar } from "../../components";
 import {
   Box,
   Container,
@@ -11,7 +11,7 @@ import {
   Tag,
 } from "@chakra-ui/react";
 import Link from 'next/link'
-import { supabase } from "../../../utils/supabase";
+import { supabase } from "@/utils/supabase";
 import { useState, useEffect } from "react";
 
 const shop = ({ params }) => {
