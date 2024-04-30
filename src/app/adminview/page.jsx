@@ -15,17 +15,15 @@ import { supabase } from "@/utils/supabase";
 import { useState, useEffect } from "react";
 
 const shop = ({ params }) => {
-  const [shopData, setShopData] = useState(null);
+  const [shopData, setShopData] = useState([]);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
     const fetchShopData = async () => {
       try {
         const { data, error } = await supabase
-          .from("profile")
+          .from("shops")
           .select("*")
-          .eq("role", "admin")
-          .single();
 
         if (error) {
           throw error;
@@ -36,25 +34,7 @@ const shop = ({ params }) => {
       }
     };
 
-    const fetchItems = async () => {
-      try {
-        const { data: items, error } = await supabase
-          .from("shops")
-          .select("*")
-          .eq("id", params.id);
-
-        if (error) {
-          throw error;
-        }
-
-        setItems(items);
-      } catch (error) {
-        console.error("Error fetching items:", error.message);
-      }
-    };
-
     fetchShopData();
-    fetchItems();
   }, [params.id]);
 
   return (
@@ -111,32 +91,36 @@ const shop = ({ params }) => {
           All Shops
         </Heading>
         <SimpleGrid columns={{ base: 1, md: 4 }} spacing="8">
-          {items.map((item, index) => (
+          {shopData.map((item, index) => (
             <Link key={item.id} href={`/item/${item.id}`}>
-              
-                <Box
-                  key={index}
-                  p="4"
-                  borderWidth="1px"
-                  borderRadius="lg"
-                  bg="white"
-                >
-                  <Image
-                    src={item.shopimg}
-                    alt="Product Image"
-                    boxSize={{ base: "250px", md: "300px" }}
-                    objectFit="cover"
-                    rounded="lg"
-                  />
-                  <br />
-                  <Text fontWeight="bold">{item.name}</Text>
-                  <Tag colorScheme="yellow">{item.address}</Tag>
+              <Box
+                key={index}
+                p="4"
+                borderWidth="1px"
+                borderRadius="lg"
+                bg="white"
+              >
+                <Image
+                  src={item.shopimg}
+                  alt="Shop Image"
+                  boxSize={{ base: "250px", md: "300px" }}
+                  objectFit="cover"
+                  rounded="lg"
+                />
+                <br />
 
-                  <Text>{item.description}</Text>
-                  <p>Phone Number: {item.sphone}/5</p>
-                  <Text>City: Rs. {item.city}</Text>
-                </Box>
-              
+                <p>Rating: {item.shoprate}/5</p>
+                <p>{item.address}</p>
+                <p>
+                  {item.city}, {item.state}
+                </p>
+                <p>{item.pincode}</p>
+                <p>
+                  Location: {item.latitude}, {item.longitude}
+                </p>
+                <p>Owned By: {item.owner_name}</p>
+                <p>Phone: {item.sphone}</p>
+              </Box>
             </Link>
           ))}
         </SimpleGrid>
