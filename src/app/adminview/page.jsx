@@ -13,7 +13,7 @@ import {
 import Link from 'next/link'
 import { supabase } from "@/utils/supabase";
 import { useState, useEffect } from "react";
-import  '@admin.jpg' as {admin};
+import {} from  '@/public/admin.jpg';
 
 const shop = ({ params }) => {
   const [shopData, setShopData] = useState([]);
@@ -81,7 +81,8 @@ const shop = ({ params }) => {
           >
             <Box flex="row" w="1/3">
               <Image
-                src={admin}
+              src='https://bit.ly/dan-abramov' 
+              fallbackSrc='https://via.placeholder.com/150'
                 alt="Shop Image"
                 boxSize={{ base: "200px", md: "300px" }}
                 objectFit="contain"
