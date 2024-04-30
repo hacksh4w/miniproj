@@ -51,8 +51,8 @@ const RequestsTable = () => {
         {
          // cproduct_id: request.cproduct_id,
           deliveryname: request.product,
-          sell_price: request.price,
-          quantity :request.quantity,
+         // sell_price: request.price,
+          ///quantity :request.quantity,
           pmethod : 'online',
           status : 'placed',
         },
