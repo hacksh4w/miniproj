@@ -24,7 +24,7 @@ const shop = ({ params }) => {
         const { data, error } = await supabase
           .from("profiles")
           .select("*")
-          .eq("id", params.id)
+          .eq("role", "admin")
           .single();
 
         if (error) {
