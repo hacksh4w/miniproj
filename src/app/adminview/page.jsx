@@ -13,13 +13,14 @@ import {
 import Link from 'next/link'
 import { supabase } from "@/utils/supabase";
 import { useState, useEffect } from "react";
-
+import admin from '../../public/admin.jpg'
 const shop = ({ params }) => {
   const [shopData, setShopData] = useState(null);
+  const [adminData, setAdminData] = useState(null);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    const fetchShopData = async () => {
+    const fetchAdminData = async () => {
       try {
         const { data, error } = await supabase
           .from("profile")
@@ -30,7 +31,7 @@ const shop = ({ params }) => {
         if (error) {
           throw error;
         }
-        setShopData(data);
+        setAdminData(data);
       } catch (error) {
         console.error("Error fetching shop data:", error.message);
       }
@@ -53,7 +54,7 @@ const shop = ({ params }) => {
       }
     };
 
-    fetchShopData();
+    fetchAdminData();
     fetchItems();
   }, [params.id]);
 
@@ -83,7 +84,7 @@ const shop = ({ params }) => {
           >
             <Box flex="row" w="1/3">
               <Image
-                src='https://depositphotos.com/photos/rugged-man.html'
+                src='admin'
                 alt="Shop Image"
                 boxSize={{ base: "200px", md: "300px" }}
                 objectFit="contain"
@@ -92,15 +93,15 @@ const shop = ({ params }) => {
             </Box>
             <Box flex="row" gap={{ base: "0", md: "20" }}>
               <Heading as="h2" size="lg" mb="2">
-                {shopData.name}
+                {adminData.name}
               </Heading>
               <Box>
                 <p>
-                  {shopData.city}, {shopData.state}
+                  {adminData.city}, {adminData.state}
                 </p>
-                <p>{shopData.pincode}</p>
-                <p> Email: {shopData.email}</p>
-                <p> Phone: {shopData.number}</p>
+                <p>{adminData.pincode}</p>
+                <p> Email: {adminData.email}</p>
+                <p> Phone: {adminData.number}</p>
               </Box>
             </Box>
           </Flex>
