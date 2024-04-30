@@ -1,16 +1,18 @@
 import React from 'react';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Box, Button, Image } from '@chakra-ui/react';
-
+import { supabase } from '../utils/supabase';
 const ProductCard = ({ img, type, desc, price, rating, title }) => {
   const generateRating = (rating) => {
     // Rating generation logic remains the same
   };
   const handleAddToCart = async () => {
     try {
+      const { id } = supabase.auth.getUser();
+      console.log(id.id)
       const { data, error } = await supabase
       .from('cart_items')
-      .insert({ item_id: id, quantity: 1 }) // obtain quantity dynamically
+      .insert({ user_id: id, quantity: 1 }) // obtain quantity dynamically
 
       if (error) {
         throw error;

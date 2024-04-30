@@ -27,17 +27,24 @@ export default function Login() {
         email: email,
         password: pass,
       });
-      if (data.user) { 
-        const { data : { UserID } } = await supabase.auth.getUser().id;
-        toast({
-          title: `Welcome ${data.user.email}`,
-          status: 'success',
-          isClosable: true,
-          position: 'top',
-        });
-        console.log(data)
-        router.push('/home');
-      }
+      
+      if (data) { 
+        const { data: profileData, error: profileError } = await supabase
+        .from('profile')
+        .select('id, role')
+        .eq('email', email)
+        .single();
+
+        if (profileError) {
+          throw profileError;
+        }
+
+        if (profileData) {
+           console.log('User ID:', profileData.id);
+           console.log('User Role:', profileData.role);
+          router.push('/home');
+        }
+      };
     } catch (error) {
       console.error('Sign in error:', error.message);
       toast({

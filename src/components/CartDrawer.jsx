@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { Grid, Drawer, DrawerOverlay, DrawerContent, DrawerCloseButton, DrawerHeader, DrawerBody, Button, useToast } from "@chakra-ui/react";
 import { supabase } from "../utils/supabase"; 
 import CartItemInDrawer from "./CartItemInDrawer"; 
+import { useUser } from "../contexts/UserContext";
 
 function CartDrawer({ isOpen, onClose }) {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const toast = useToast();
-
+    const { cartUserID } = useUser();
   useEffect(() => {
     fetchCartItems(); // Fetch cart items whenever the drawer opens
   }, [isOpen]);
@@ -18,9 +19,9 @@ function CartDrawer({ isOpen, onClose }) {
     try {
       // Fetch cart items from Supabase
       const { data, error } = await supabase
-        .from("cart")
+        .from("cartItems")
         .select("*")
-        .eq("user_id", supabase.auth.getUser().id);
+        .eq("user_id", cartUserID);
       if (error) throw error;
       setCartItems(data);
       

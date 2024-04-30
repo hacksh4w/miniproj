@@ -23,15 +23,16 @@ const HeaderMain = () => {
   const toast = useToast({});
   const { isOpen, onOpen, onClose } = useDisclosure();
   const drawerRef = useRef();
+  
 
-  //const { userID } = useUser();
+ // const { userID } = useUser();
   const [cartItems,setCartItems]= useState([])
   const [productId, setProductId] = useState('');
   const [quantity, setQuantity] = useState('');
   const [price, setPrice] = useState('');
   const [total, setTotal] = useState('');  
   const [userID, setUserID] = useState('');
-  
+
   useEffect(() => {
     fetchCartItems(); // Fetch cart items when the drawer opens
   }, [isOpen]);
@@ -39,8 +40,9 @@ const HeaderMain = () => {
   const fetchCartItems = async () => {
     try {
       // Fetch cart items from Supabase
-      const { data : { userID } } = await supabase.auth.getUser();
-      const { data, error } = await supabase.from("cart").select("*").eq("user_id", userID);
+     // const { data : { userID } } = await supabase.auth.getUser();
+     console.log(userID.id)
+      const { data, error } = await supabase.from("cart").select("*").eq("user_id", userID.id);
       if (error) throw error;
       setCartItems(data);
 

@@ -10,32 +10,43 @@ export const UserProvider = ({ children }) => {
   const [userID, setUserID] = useState(null);
   const [error, setError] = useState(null);
 
-  /*useEffect(() => {
+  useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const user = supabase.auth.getUser();
-        if (user) {
-          const { data, error } = await supabase
-            .from('profile')
-            .select('*')
-            .eq('id', user.id)
-            .single();
-          if (error) {
-            throw error;
+        const data = supabase.auth.getUser();
+        if (data) { 
+          const { data: profileData, error: profileError } = await supabase
+          .from('profile')
+          .select('id, role')
+          .eq('email', email)
+          .single();
+          console.log(profileData, "inside context")
+          
+          if (profileError) {
+            throw profileError;
           }
-          setUserData(data);
-          setUserID(user.id);
-          setUserRole(user.role);
-        }
-      } catch (error) {
-        setError(error);
-        console.error('Error fetching user data:', error.message);
-      }
+  
+          if (profileData) {
+            console.log('User ID:', profileData.id);
+            console.log('User Role:', profileData.role);
+            router.push('/home');
+          }
+        } else { console.log('No user data found in usercontext') };
+      }  catch (error) {
+        console.error('Sign in error:', error.message);
+        toast({
+          title: 'Signin Error',
+          description: error.message,
+          status: 'error',
+          isClosable: true,
+          position: 'top',
+        });
+      } 
     };
 
     fetchUserData();
   }, []);
-*/
+
   const value = {
     userID,
     userData,
