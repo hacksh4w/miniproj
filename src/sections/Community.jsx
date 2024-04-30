@@ -6,6 +6,9 @@ import styles from "../../styles";
 import { TypingText, TitleText } from "../components";
 import Image from "next/image";
 
+import { Box } from '@chakra-ui/react' 
+
+
 const container = (direction, type, duration) => ({
     hidden: {
         x: direction === "left" ? 100 : direction === "right" ? -100 : 0,
@@ -71,12 +74,12 @@ const Community = () => {
                 >
 
                 {/* 
-                    <Image
+                        <Image 
                         src="/world1.png"
                         alt="map"
                         fill
                         style={{ objectFit: "cover" }}
-                    />
+                        />
                     */}
                     
 

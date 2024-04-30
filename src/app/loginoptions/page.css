@@ -1,0 +1,23 @@
+/* page.css */
+.container {
+    background-color: rgb(255, 31, 31);
+  }
+  
+  .flex-container {
+    min-height: 100vh;
+    width: 95%;
+    margin: 0 auto;
+  }
+  
+  .button {
+    width: 100%;
+  }
+  
+  /* Add any additional styles here */
+  /* page.css */
+.container {
+    background: linear-gradient(to bottom right, #4e54c8, #8f94fb);
+  }
+  
+  /* Rest of your styles */
+  
