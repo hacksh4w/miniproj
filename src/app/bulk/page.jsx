@@ -101,7 +101,7 @@ const Bulk = () => {
     const fetchData = async()=>{
       const {data}=await supabase.from("items").select('*')
       const {data:{user}}=await supabase.auth.getUser() 
-      console.log(user)
+      console.log(user.id)
       console.log(data)
       setTotalData(data)
     }
@@ -124,8 +124,8 @@ const Bulk = () => {
       brand:item.brand,
       quantity:item.quantity,
       location: {
-        latitude: item.latitude,
-        longitude: item.longitude
+      latitude: item.latitude,
+      longitude: item.longitude
       }
     }));
     let filteredData = []
@@ -189,8 +189,8 @@ const Bulk = () => {
       brand:item.brand,
       quantity:item.quantity,
       location: {
-        latitude: item.latitude,
-        longitude: item.longitude
+      latitude: item.latitude,
+      longitude: item.longitude
       }
     }));
     const filteredData = transformedData.filter(item => item.name === itemId);
