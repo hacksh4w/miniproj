@@ -60,8 +60,8 @@ const RequestsTable = () => {
         <Thead>
           <Tr>
             <Th>User ID</Th>
-            <Th>Donor ID</Th>
-            <Th>Sample ID</Th>
+            <Th>Item Name</Th>
+            <Th>Price</Th>
             <Th>Verified</Th>
             <Th>Actions</Th>
           </Tr>
@@ -70,9 +70,8 @@ const RequestsTable = () => {
           {Cart.map((request) => (
             <Tr key={Cart.id}>
               <Td>{Cart.id}</Td>
+              <Td>{request.name}</Td>
               <Td>{request.price}</Td>
-              <Td>{request.donor_id}</Td>
-              <Td>{request.adopter_id}</Td>
               {/*<Td>{request.rsample_id}</Td> */}
               <Td>{request.verified ? 'Yes' : 'No'}</Td>
               <Td>
