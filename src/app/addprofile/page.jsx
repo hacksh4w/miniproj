@@ -11,7 +11,7 @@ const Page = () => {
     const [userData, setUserData] = useState({
         country: '',
         email: '',
-        phone: '',
+        number: '',
         pincode: 0,
         state: '',
         city: '',
@@ -28,7 +28,8 @@ const Page = () => {
             const userDataWithExtraFields = {
                 ...userData,
                 role: 'client', 
-                user_id:  userID.id, 
+                id: '9', //userID.id(), 
+                password : '123t434',
             };
 
             // Insert userDataWithExtraFields into the 'profile' table
@@ -69,7 +70,7 @@ const Page = () => {
             <Flex minH='100vh' maxW='85%' direction='column' justify='center' align='center' mx={8} align='center'> 
                 <Stack direction='column' justify='center' align='center' w='30%' m={4}>
                     <Input m={3} type='email' placeholder='Email' label='email' onChange={(e) => handleChange(e, 'email')}  size='md' />
-                    <Input m={3} type='tel' placeholder='Phone Number' onChange={(e) => handleChange(e, 'phone')} />
+                    <Input m={3} type='tel' placeholder='Phone Number' onChange={(e) => handleChange(e, 'number')} />
                     <Input m={3} type='number' placeholder='Pincode' onChange={(e) => handleChange(e, 'pincode')} />
                     <Input m={3} type='text' placeholder='Country' onChange={(e) => handleChange(e, 'country')} />
                     <Input m={3} type='text' placeholder='State' onChange={(e) => handleChange(e, 'state')} />
