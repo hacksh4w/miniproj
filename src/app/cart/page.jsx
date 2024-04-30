@@ -1,24 +1,26 @@
-'use client' 
+'use client'
 import { useEffect, useState } from 'react';
-import { supabase } from '@utils/supabase';
+import { supabase } from '@/utils/supabase';
 import { useToast } from '@chakra-ui/react';
 import { Button, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
 import { useProfile } from '../../contexts/ProfileContext';
+
 const RequestsTable = () => {
-  const [Cart, setCart] = useState([]);
-  const userId = useProfile()
+  const [cart, setCart] = useState([]);
+  const userId = useProfile();
   const toast = useToast({});
 
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const { data: Data, error: errorData } = await supabase
-          .from('CartItems')
-          .select('*');
-
-        if (errorData) throw errorData;
+        const { data, error } = await supabase
+          .from('cartItems')
+          .select('*')
+          //.eq('user_id', userId);
+        console.log(cart)
+        if (error) throw error;
         else {
-          setCart(Data || []);
+          setCart(data || []);
         }
       } catch (error) {
         toast({
@@ -30,27 +32,50 @@ const RequestsTable = () => {
       }
     };
     fetchRequests();
-  }, [toast]);
+  }, [userId, toast]);
 
   const handleOrder = async (requestId) => {
     try {
-      const { data, error } = await supabase
-        .from('orders')
-        .update({ verified: true })
-        .eq('id', requestId);
+      const request = cart.find((item) => item.id === requestId);
+
+      if (!request) {
+        throw new Error('Request not found in cart');
+      }
+
+      const { data, error } = await supabase.from('orders').insert([
+        {
+         // cproduct_id: request.cproduct_id,
+          deliveryname: request.product,
+          price: request.price,
+          quantity :request.quantity,
+          pmethod : 'online',
+          status : 'placed',
+        },
+      ]);
 
       if (error) {
-        console.error('Error updating request:', error);
+        throw error;
       } else {
-        console.log('Request verified successfully:', data);
-        setCart((prevRequests) =>
-          prevRequests.map((req) =>
-            req.id === requestId ? { ...req, verified: true } : req
-          )
-        );
+        console.log('Order placed successfully:', data);
+        // Remove the item from the cart after placing the order
+        setCart((prevCart) => prevCart.filter((item) => item.id !== requestId));
+        toast({
+          title: 'Order Placed',
+          description: 'Your order has been placed successfully.',
+          status: 'success',
+          duration: 5000,
+          isClosable: true,
+        });
       }
     } catch (error) {
-      console.error('Error updating request:', error.message);
+      console.error('Error placing order:', error.message);
+      toast({
+        title: 'Error',
+        description: 'Failed to place order. Please try again.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
   };
 
@@ -59,28 +84,31 @@ const RequestsTable = () => {
       <Table variant="striped" colorScheme="teal" size="sm">
         <Thead>
           <Tr>
-            <Th>User ID</Th>
+            <Th>Cart Item ID</Th>
             <Th>Item Name</Th>
             <Th>Price</Th>
-            <Th>Verified</Th>
+            <Th>Quantity</Th>
+            <Th>Total Cost</Th>
+            <Th>Order Status</Th>
             <Th>Actions</Th>
           </Tr>
         </Thead>
         <Tbody>
-          {Cart.map((request) => (
-            <Tr key={Cart.id}>
-              <Td>{Cart.id}</Td>
-              <Td>{request.name}</Td>
-              <Td>{request.price}</Td>
-              {/*<Td>{request.rsample_id}</Td> */}
-              <Td>{request.verified ? 'Yes' : 'No'}</Td>
+          {cart.map((request) => (
+            <Tr key={request.id}>
+              <Td>{request.id}</Td>
+              <Td>{request.product}</Td>
+              <Td>{request.cost}</Td>
+              <Td>{request.quantity}</Td>
+              <Td>{request.totPrice}</Td>
+              <Td>{request.status ? 'placed' : ''}</Td>
               <Td>
                 {!request.verified ? (
                   <Button onClick={() => handleOrder(request.id)}>
-                    Verify Request
+                    Place Order
                   </Button>
                 ) : (
-                  <Button disabled>Verified</Button>
+                  <Button disabled>Order Placed</Button>
                 )}
               </Td>
             </Tr>
