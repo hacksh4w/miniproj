@@ -16,11 +16,13 @@ const RequestsTable = () => {
         const { data, error } = await supabase
           .from('cartItems')
           .select('*')
+         // .eq('cart', status)
           //.eq('user_id', userId);
         console.log(cart)
         if (error) throw error;
         else {
           setCart(data || []);
+          
         }
       } catch (error) {
         toast({
@@ -36,6 +38,9 @@ const RequestsTable = () => {
 
   const handleOrder = async (requestId) => {
     try {
+        const { pdata, perror } = await supabase
+        .from('cartItems')
+        .select('*')
       const request = cart.find((item) => item.id === requestId);
 
       if (!request) {
@@ -52,6 +57,7 @@ const RequestsTable = () => {
           status : 'placed',
         },
       ]);
+    
 
       if (error) {
         throw error;
@@ -100,8 +106,8 @@ const RequestsTable = () => {
               <Td>{request.product}</Td>
               <Td>{request.cost}</Td>
               <Td>{request.quantity}</Td>
-              <Td>{request.price}</Td>
-              <Td>{request.status ? 'placed' : 'cart'}</Td>
+              <Td>{request.totPrice}</Td>
+              <Td>{request.status ? 'cart' : 'placed'}</Td>
               <Td>
                 {!request.verified ? (
                   <Button onClick={() => handleOrder(request.id)}>
