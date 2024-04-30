@@ -1,21 +1,13 @@
 "use client";
 import { Navbar } from "../../../components";
-import {
-  Box,
-  Container,
-  Flex,
-  Heading,
-  Image,
-  SimpleGrid,
-  Text,
-  Tag
-} from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, Image, Tag } from "@chakra-ui/react";
 import { supabase } from "../../../utils/supabase";
 import { useState, useEffect } from "react";
 
-const shop = ({ params }) => {
-  const [itemDetails, setItemDetails] = useState([]);
-    const [shopDetails, setShopDetails] = useState([]);
+const Shop = ({ params }) => {
+  const [itemDetails, setItemDetails] = useState(null);
+  const [shopDetails, setShopDetails] = useState(null);
+
   useEffect(() => {
     const fetchDetails = async () => {
       try {
@@ -29,31 +21,33 @@ const shop = ({ params }) => {
           throw error;
         }
         setItemDetails(data);
+        fetchShop(itemDetails);
+      } catch (error) {
+        console.error("Error fetching item data:", error.message);
+      }
+    };
+
+    const fetchShop = async (itemDetails) => {
+      try {
+        const { data, error } = await supabase
+          .from("shops")
+          .select("*")
+          .eq("id", itemDetails?.shop_id) // Ensure itemDetails is populated before accessing shop_id
+          .single();
+
+        if (error) {
+          throw error;
+        }
+        setShopDetails(data);
       } catch (error) {
         console.error("Error fetching shop data:", error.message);
       }
     };
 
-    const fetchShop = async () => {
-        try {
-          const { data, error } = await supabase
-            .from("shops")
-            .select("*")
-            .eq("id", itemDetails.shop_id)
-            .single();
-  
-          if (error) {
-            throw error;
-          }
-          setShopDetails(data);
-        } catch (error) {
-          console.error("Error fetching shop data:", error.message);
-        }
-      };
-
-    fetchDetails();
-    fetchShop();
-  }, [params.id]);
+    if (params.id) {
+      fetchDetails();
+    }
+  }, [params.id, itemDetails?.shop_id]); // Include itemDetails.shop_id in dependencies
 
   return (
     <>
@@ -92,20 +86,28 @@ const shop = ({ params }) => {
               <Heading as="h2" size="lg" mb="2">
                 {itemDetails.name}
               </Heading>
-              <Tag colorScheme="yellow" mr="10px">{itemDetails.category}</Tag>
+              <Tag colorScheme="yellow" mr="10px">
+                {itemDetails.category}
+              </Tag>
               <Tag colorScheme="yellow">{itemDetails.type}</Tag>
               <Box>
-                <p>Available At: {shopDetails.name}</p>
+                <p>Available At: {shopDetails?.name}</p>
+                <p>{shopDetails?.address}</p>
+                <p>
+                  {shopDetails?.city}, {shopDetails?.state}
+                </p>
+                <p>{shopDetails?.pincode}</p>
                 <p>Price: {itemDetails.price}</p>
-                <p>Location: {shopDetails.latitude}, {shopDetails.longitude}</p>
+                <p>
+                  Location: {shopDetails?.latitude}, {shopDetails?.longitude}
+                </p>
               </Box>
             </Box>
           </Flex>
         )}
-
       </Container>
     </>
   );
 };
 
-export default shop;
+export default Shop;

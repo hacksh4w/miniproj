@@ -1,7 +1,8 @@
-'use client'
-import React, {useEffect, useState} from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import { supabase } from "../utils/supabase.js"; 
+import Link from "next/link.js";
+import { supabase } from "../utils/supabase.js";
 
 const NewProducts = () => {
   const [latestItems, setLatestItems] = useState([]);
@@ -33,30 +34,21 @@ const NewProducts = () => {
       {latestItems.length === 0 ? (
         <p>No items available</p>
       ) : (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 justify-items-center">
-        {latestItems.map((item, index) => (
-          <ProductCard
-            key={index}
-            img={item.img}
-            type={item.type}
-            desc={item.desc}
-            rating={item.rating}
-            price={item.price}
-          />
-        ))}
-        {/*}
-        {productsData.map((item, index) => (
-          <ProductCard
-            key={index}
-            img={item.imageUrl[0]}
-            title={item.name}
-            desc={item.desc}
-            rating={item.rating}
-            price={item.price}
-          />
-        ))} */}
-      </div> )}
-    </div> 
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 justify-items-center">
+          {latestItems.map((item, index) => (
+            <Link key={index} href={`/item/${item.id}`}>
+              <ProductCard
+                img={item.imageUrl}
+                type={item.type}
+                desc={item.desc}
+                rating={item.rating}
+                price={item.price}
+              />
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 
