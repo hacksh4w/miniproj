@@ -68,6 +68,7 @@ const AddItemPage = () => {
 
     return (
         <Container maxW='100vw' bg='white'>
+            <h1 style={{textAlign: "center", fontWeight: "bold", fontSize: "28px"}}>Add Item</h1>
             <Flex minH='100vh' maxW='85%' direction='column' justify='center' align='center' mx={8} align='center'>
                 <Stack direction='column' justify='center' align='center' w='30%' m={4}>
                     <Input m={3} type='text' placeholder='Name' onChange={(e) => handleChange(e, 'name')} size='md' />
