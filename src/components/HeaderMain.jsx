@@ -1,13 +1,94 @@
 'use client'
 import React from "react";
-
+import { useRef, useState, useEffect} from "react";
 import { BsSearch } from "react-icons/bs";
 import { BiUser } from "react-icons/bi";
 import { FiHeart } from "react-icons/fi";
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import Link from "next/link";
+//import DrawerComponent from "./Drawer";
+import { Box, Button, useDisclosure, useToast } from '@chakra-ui/react';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+} from '@chakra-ui/react'
+import { supabase } from "@/utils/supabase";
+import { useUser } from "@/contexts/UserContext";
 
 const HeaderMain = () => {
+  const toast = useToast({});
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const drawerRef = useRef();
+
+  //const { userID } = useUser();
+  const [cartItems,setCartItems]= useState([])
+  const [productId, setProductId] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [price, setPrice] = useState('');
+  const [total, setTotal] = useState('');  
+  const [userID, setUserID] = useState('');
+  
+  useEffect(() => {
+    fetchCartItems(); // Fetch cart items when the drawer opens
+  }, [isOpen]);
+
+  const fetchCartItems = async () => {
+    try {
+      // Fetch cart items from Supabase
+      const { data : { userID } } = await supabase.auth.getUser();
+      const { data, error } = await supabase.from("cart").select("*").eq("user_id", userID);
+      if (error) throw error;
+      setCartItems(data);
+
+      // Calculate total price
+      const sum = data.reduce((acc, item) => acc + item.price * item.quantity, 0);
+      const tax = sum * 0.03;
+      setTotalPrice(sum + tax);
+    } catch (error) {
+      console.error("Error fetching cart items:", error.message);
+      toast({
+        title: "Error",
+        description: "Failed to fetch cart items.",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+  const handleAddToCart = async()=>{
+    try {
+      const updatedDataCart = { ...dataCart, adopter_id: userID }
+      setDataCart(updatedDataCart);
+      console.log(dataCart)
+      const { error } = await supabase
+          .from('Cart')
+          .insert([updatedDataCart])
+
+      if (error) {
+          throw error;
+      }
+      console.log(error)
+      toast({
+          title: "Added Item to Cart",
+          status: "success",
+          isClosable: true,
+          position: "top"
+      });
+      onClose(); 
+
+    } catch (error) {
+      toast({
+        title: "Failed to add item",
+        status: "error",
+        isClosable: true,
+        position: "top"
+    });
+    }
+    ;}
   return (
     <div className="border-b border-orange-300 py-6">
       <div className="container sm:flex justify-between items-center">
@@ -42,9 +123,13 @@ const HeaderMain = () => {
           </div>
 
           <div className="relative">
-          <Link href="#">
-          <HiOutlineShoppingBag />
-          </Link>
+          <Button 
+            ref={drawerRef} 
+            onClick={onOpen} 
+            // unfilled </div>
+            >
+            <HiOutlineShoppingBag />
+          </Button>
                 
             <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
               0
@@ -60,7 +145,9 @@ const HeaderMain = () => {
           </div>
 
         </div>
+      
       </div>
+        
     </div>
   );
 };

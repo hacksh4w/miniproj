@@ -39,7 +39,7 @@ const MapComponent = ({ searchResults, userPos}) => {
         {searchResults.map((item, index) => (
           <CircleMarker key={index} center={[item.location.latitude, item.location.longitude]} fillColor="orange" opacity={1}>
             <Popup>
-              Item ID: {item.name}<br />
+              Item Name: {item.name}<br />
               Quantity: {item.quantity}<br />
               Location: {item.location.latitude}, {item.location.longitude}
             </Popup>
@@ -118,8 +118,8 @@ const Bulk = () => {
       brand:item.brand,
       quantity:item.quantity,
       location: {
-        latitude: item.latitude,
-        longitude: item.longitude
+      latitude: item.latitude,
+      longitude: item.longitude
       }
     }));
     const filteredData = transformedData.filter(item => item.name === itemId);
@@ -171,8 +171,8 @@ const Bulk = () => {
       brand:item.brand,
       quantity:item.quantity,
       location: {
-        latitude: item.latitude,
-        longitude: item.longitude
+      latitude: item.latitude,
+      longitude: item.longitude
       }
     }));
     const filteredData = transformedData.filter(item => item.name === itemId);

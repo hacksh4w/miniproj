@@ -1,12 +1,26 @@
 import React from 'react';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { Box, Image } from '@chakra-ui/react';
+import { Box, Button, Image } from '@chakra-ui/react';
 
 const ProductCard = ({ img, type, desc, price, rating, title }) => {
   const generateRating = (rating) => {
     // Rating generation logic remains the same
   };
+  const handleAddToCart = async () => {
+    try {
+      const { data, error } = await supabase
+      .from('cart_items')
+      .insert({ item_id: id, quantity: 1 }) // obtain quantity dynamically
 
+      if (error) {
+        throw error;
+      }
+
+      console.log('Item added to cart:', data);
+    } catch (error) {
+      console.error('Error adding item to cart:', error.message);
+    }
+  };
   return (
     <div className='px-4 border border-orange-500 rounded-xl max-w-[400]'>
       <Box boxSize='xs' justify='center' align='center'             
@@ -31,7 +45,9 @@ const ProductCard = ({ img, type, desc, price, rating, title }) => {
           Rs. {price}
           <del className='text-red-600'>Rs. {parseInt(price) + 500}</del>
         </div>
-          {/* Action Button Required // depending on rental/sale buy now or rent now shud be action word */}
+          <Button onClick={handleAddToCart} color='blue.600'> 
+          Order Now! 
+          </Button> 
       </div>
     </div>
   );

@@ -18,6 +18,7 @@ export default function Login() {
   const toast = useToast({});
   const [email,setEmail] = useState('')
   const [pass,setPass]=useState('')
+  const [UserID, setUSerID] = useState('')
 
   const handleSignIn = async()=>{
     try {
@@ -27,6 +28,7 @@ export default function Login() {
         password: pass,
       });
       if (data.user) { 
+        const { data : { UserID } } = await supabase.auth.getUser().id;
         toast({
           title: `Welcome ${data.user.email}`,
           status: 'success',
