@@ -13,12 +13,11 @@ import {
 import Link from 'next/link'
 import { supabase } from "@/utils/supabase";
 import { useState, useEffect } from "react";
-import admin from '../../public/admin.jpg'
+import  '@admin.jpg' as {admin};
 
 const shop = ({ params }) => {
   const [shopData, setShopData] = useState([]);
   const [adminData, setAdminData] = useState(null);
-  const [items, setItems] = useState([]);
 
   useEffect(() => {
     const fetchAdminData = async () => {
@@ -32,31 +31,28 @@ const shop = ({ params }) => {
         if (error) {
           throw error;
         }
-        setADminData(data);
+        setAdminData(data);
       } catch (error) {
         console.error("Error fetching shop data:", error.message);
       }
     };
 
-    const fetchItems = async () => {
-      try {
-        const { data: items, error } = await supabase
-          .from("shops")
-          .select("*")
-          .eq("id", params.id);
-
-        if (error) {
-          throw error;
+    const fetchShopData = async () => {
+        try {
+          const { data, error } = await supabase
+            .from("shops")
+            .select("*")
+  
+          if (error) {
+            throw error;
+          }
+          setShopData(data);
+        } catch (error) {
+          console.error("Error fetching shop data:", error.message);
         }
-
-        setItems(items);
-      } catch (error) {
-        console.error("Error fetching items:", error.message);
-      }
-    };
+      };
     fetchShopData();
-    fetchAminData();
-    fetchItems();
+    fetchAdminData();
   }, [params.id]);
 
   return (
@@ -85,7 +81,7 @@ const shop = ({ params }) => {
           >
             <Box flex="row" w="1/3">
               <Image
-                src='../../../public/admin.jpg'
+                src={admin}
                 alt="Shop Image"
                 boxSize={{ base: "200px", md: "300px" }}
                 objectFit="contain"
@@ -110,7 +106,7 @@ const shop = ({ params }) => {
 
         <br />
         <Heading size={{ base: "sm", md: "md" }} mb="10px">
-          All Shops
+          Admin View
         </Heading>
         <SimpleGrid columns={{ base: 1, md: 4 }} spacing="8">
           {shopData.map((item, index) => (
