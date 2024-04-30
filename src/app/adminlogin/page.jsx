@@ -35,7 +35,7 @@ export default function Login() {
           position: 'top',
         });
         console.log(data.email);
-        router.push('/home');
+        router.push('/shop/5');
       } else {
         router.push('/');
       }
