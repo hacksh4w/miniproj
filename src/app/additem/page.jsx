@@ -9,7 +9,7 @@ const AddItemPage = () => {
     const { userID } = useProfile();
     const [itemData, setItemData] = useState({
         name: '',
-        //imageUrl: '',
+        imageUrl: '',
         price: 0,
         rating: 0,
         product_id: '',
