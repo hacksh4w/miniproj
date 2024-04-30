@@ -35,9 +35,9 @@ export default function Login() {
           position: 'top',
         });
         console.log(data.email);
-        router.push('/signup');
-      } else {
         router.push('/home');
+      } else {
+        router.push('/');
       }
     } catch (error) {
       console.error('Sign in error:', error.message);

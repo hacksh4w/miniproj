@@ -85,7 +85,7 @@ const HeaderMain = () => {
     <div className="border-b border-orange-300 py-6">
       <div className="container sm:flex justify-between items-center">
         <div className="font-bold text-4xl text-center pb-4 sm:pb-0 text-blackish">
-          <Link href="#">Ensamble Havennnnn</Link>
+          <Link href="#">Ensamble Haven</Link>
         </div>
 
         <div className="w-full sm:w-[300px] md:w-[70%] relative">
@@ -100,33 +100,13 @@ const HeaderMain = () => {
 
         <div className="hidden lg:flex gap-4 text-gray-500 text-[30px]">
         <Link href="/addprofile"><Button > 
-            <BiUser />
+            <BiUser /> <p>Add</p>
            
           </Button> </Link>
-
-          <div className="relative">
-          <Link href="#">
-          <FiHeart />
-          </Link>
-            
-            <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
-              0
-            </div>
-          </div>
-
-          <div className="relative">
-          <Button 
-            ref={drawerRef} 
-            onClick={onOpen} 
-            // unfilled </div>
-            >
-            <HiOutlineShoppingBag />
-          </Button>
-                
-            <div className="bg-red-600 rounded-full absolute top-0 right-0 w-[18px] h-[18px] text-[12px] text-white grid place-items-center translate-x-1 -translate-y-1">
-              0
-            </div>
-          </div>
+        <Link href="/profile/3"><Button > 
+            <BiUser /> <p>View</p>
+           
+          </Button> </Link>
 
           <div className="hidden lg:flex gap-5 text-gray-500 text-[20px]">
           <Link href="/">
