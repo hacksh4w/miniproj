@@ -22,7 +22,7 @@ const shop = ({ params }) => {
     const fetchShopData = async () => {
       try {
         const { data, error } = await supabase
-          .from("profiles")
+          .from("profile")
           .select("*")
           .eq("role", "admin")
           .single();
@@ -39,9 +39,9 @@ const shop = ({ params }) => {
     const fetchItems = async () => {
       try {
         const { data: items, error } = await supabase
-          .from("items")
+          .from("shops")
           .select("*")
-          .eq("shop_id", params.id);
+          .eq("id", params.id);
 
         if (error) {
           throw error;
@@ -113,7 +113,7 @@ const shop = ({ params }) => {
 
         <br />
         <Heading size={{ base: "sm", md: "md" }} mb="10px">
-          Available Products
+          All Shops
         </Heading>
         <SimpleGrid columns={{ base: 1, md: 4 }} spacing="8">
           {items.map((item, index) => (
@@ -127,7 +127,7 @@ const shop = ({ params }) => {
                   bg="white"
                 >
                   <Image
-                    src={item.imageUrl}
+                    src={item.shopimg}
                     alt="Product Image"
                     boxSize={{ base: "250px", md: "300px" }}
                     objectFit="cover"
@@ -135,11 +135,11 @@ const shop = ({ params }) => {
                   />
                   <br />
                   <Text fontWeight="bold">{item.name}</Text>
-                  <Tag colorScheme="yellow">{item.category}</Tag>
+                  <Tag colorScheme="yellow">{item.address}</Tag>
 
                   <Text>{item.description}</Text>
-                  <p>Rating: {item.rating}/5</p>
-                  <Text>Price: Rs. {item.price}</Text>
+                  <p>Phone Number: {item.sphone}/5</p>
+                  <Text>City: Rs. {item.city}</Text>
                 </Box>
               
             </Link>
