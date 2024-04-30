@@ -32,10 +32,10 @@ const RequestsTable = () => {
     fetchRequests();
   }, [toast]);
 
-  const handleVerifyRequest = async (requestId) => {
+  const handleOrder = async (requestId) => {
     try {
       const { data, error } = await supabase
-        .from('Cart')
+        .from('orders')
         .update({ verified: true })
         .eq('id', requestId);
 
@@ -76,7 +76,7 @@ const RequestsTable = () => {
               <Td>{request.verified ? 'Yes' : 'No'}</Td>
               <Td>
                 {!request.verified ? (
-                  <Button onClick={() => handleVerifyRequest(request.id)}>
+                  <Button onClick={() => handleOrder(request.id)}>
                     Verify Request
                   </Button>
                 ) : (

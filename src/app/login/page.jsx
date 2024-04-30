@@ -41,8 +41,8 @@ export default function Login() {
   
           if (profileData) {
             setProfileData(profileData);
-            console.log(profileData);
-            console.log(data.id);
+            //console.log(profileData);
+            //console.log(data.id);
             router.push('/home');
           }
       };
