@@ -39,7 +39,7 @@ const NewProducts = () => {
         {latestItems.map((item, index) => (
           <ProductCard
             key={index}
-            img={item.img}
+            img={item.imageUrl}
             type={item.type}
             desc={item.desc}
             rating={item.rating}
