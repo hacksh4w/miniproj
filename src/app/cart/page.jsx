@@ -46,7 +46,7 @@ const RequestsTable = () => {
         {
          // cproduct_id: request.cproduct_id,
           deliveryname: request.product,
-          price: request.price,
+          sell_price: request.price,
           quantity :request.quantity,
           pmethod : 'online',
           status : 'placed',
@@ -100,8 +100,8 @@ const RequestsTable = () => {
               <Td>{request.product}</Td>
               <Td>{request.cost}</Td>
               <Td>{request.quantity}</Td>
-              <Td>{request.totPrice}</Td>
-              <Td>{request.status ? 'placed' : ''}</Td>
+              <Td>{request.price}</Td>
+              <Td>{request.status ? 'placed' : 'cart'}</Td>
               <Td>
                 {!request.verified ? (
                   <Button onClick={() => handleOrder(request.id)}>
