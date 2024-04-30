@@ -83,7 +83,7 @@ const shop = ({ params }) => {
           >
             <Box flex="row" w="1/3">
               <Image
-                src={shopData.shopimg}
+                src='https://depositphotos.com/photos/rugged-man.html'
                 alt="Shop Image"
                 boxSize={{ base: "200px", md: "300px" }}
                 objectFit="contain"
@@ -95,17 +95,12 @@ const shop = ({ params }) => {
                 {shopData.name}
               </Heading>
               <Box>
-                <p>Rating: {shopData.shoprate}/5</p>
-                <p>{shopData.address}</p>
                 <p>
                   {shopData.city}, {shopData.state}
                 </p>
                 <p>{shopData.pincode}</p>
-                <p>
-                  Location: {shopData.latitude}, {shopData.longitude}
-                </p>
-                <p>Owned By: {shopData.owner_name}</p>
-                <p>Phone: {shopData.sphone}</p>
+                <p> Email: {shopData.email}</p>
+                <p> Phone: {shopData.number}</p>
               </Box>
             </Box>
           </Flex>
