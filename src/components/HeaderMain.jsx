@@ -99,7 +99,7 @@ const HeaderMain = () => {
         </div>
 
         <div className="hidden lg:flex gap-4 text-gray-500 text-[30px]">
-          <Link href="#">
+          <Link href="/addprofile">
           <BiUser />
           </Link>
         
