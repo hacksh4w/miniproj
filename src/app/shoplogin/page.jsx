@@ -34,7 +34,7 @@ export default function Login() {
           position: 'top',
         });
         console.log(data)
-        router.push('/home')
+        router.push('/additem');
       }
     } catch (error) {
       console.error('Sign in error:', error.message);
