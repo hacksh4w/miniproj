@@ -5,28 +5,29 @@
 A Project made for B.Tech CSE S6 Mini Project, by Team 13
 
 ## Table of Contents
-1. [What is Ensemble Haven](#project-description)
+1. [What is Ensemble Haven?](#project-description)
 2. [Team Members](#team-members)
 3. [Tech Stack](#tech-stack)
-4. [Project Description](#project-description)
-5. [Project Demo](#project-demo)
+4. [Product Features](#product-features)
+5. [Some Screenshots](#some-snaps)
+6. [Project Demo](#project-demo)
 
 ## Project Description
-Problem State : In the heart of India's culturally diverse landscape, a substantial problem looms large – the absence of an efficient platform for cultural item rentals. Navigating through fragmented local stores proves to be a cumbersome process for users, often resulting in wasted time and frustration when desired items are not in stock. This challenge is exacerbated for event planners and businesses with bulk orders, who are left without a specialized platform to meet their specific needs. In a country where cultural richness is a source of pride, the lack of a centralized, streamlined solution for accessing cultural items is a significant pain point, underscoring the critical need for a transformative platform like EnsembleHaven.
+<h3>Problem Statemet : </h3> In the heart of India's culturally diverse landscape, a substantial problem looms large – the absence of an efficient platform for cultural item rentals. Navigating through fragmented local stores proves to be a cumbersome process for users, often resulting in wasted time and frustration when desired items are not in stock. This challenge is exacerbated for event planners and businesses with bulk orders, who are left without a specialized platform to meet their specific needs. In a country where cultural richness is a source of pride, the lack of a centralized, streamlined solution for accessing cultural items is a significant pain point, underscoring the critical need for a transformative platform like EnsembleHaven.
  
- Beyond the challenge of availability, performers in group cultural events face additional complexities. Coordination of matching attires becomes an intricate task, amplifying the need for a centralized platform. The lack of standardized sizing and styles in local stores adds a layer of difficulty for performers seeking uniformity in their appearances. Additionally, the absence of a dedicated platform often results in higher costs as performers resort to purchasing items outright due to limited rental options. 
+Beyond the challenge of availability, performers in group cultural events face additional complexities. Coordination of matching attires becomes an intricate task, amplifying the need for a centralized platform. The lack of standardized sizing and styles in local stores adds a layer of difficulty for performers seeking uniformity in their appearances. Additionally, the absence of a dedicated platform often results in higher costs as performers resort to purchasing items outright due to limited rental options. 
 
-Our Vision: EnsembleHaven revolutionizes the cultural rental experience by offering a user centric platform that addresses the challenges faced by users, event planners, and businesses. The application employs a seamless interface, ensuring effortless navigation for users seeking cultural items for events or personal use. Real-time availability tracking becomes a cornerstone feature, allowing users to ascertain item availability before making the trip to local stores.
+<h3>Our Vision : </h3> EnsembleHaven revolutionizes the cultural rental experience by offering a user centric platform that addresses the challenges faced by users, event planners, and businesses. The application employs a seamless interface, ensuring effortless navigation for users seeking cultural items for events or personal use. Real-time availability tracking becomes a cornerstone feature, allowing users to ascertain item availability before making the trip to local stores.
 With the added ability to perform bulk order from various lcoations while filtering based on least distance or least price.
+
 ## Team Members
-### **Team Name** : MARN
 1. [Mrinalini Nair Ani](https://github.com/hacksh4w/)
 1. [Kevin Joseph Hendry](https://github.com/niyashiyas)
 1. [Alaka A J](https://github.com/alaka03aj)
 1. [Adithya V](https://github.com/milkbreadzee)
 
 ## Tech Stack
-React, TailwindCSS, Firebase(SDK), Vite, npm
+Next.js, TailwindCSS, Chakra UI, Supabase, postgreSQL, Vite, npm
 
 ## Prodduct Features 
 - User Registration and Authentication
