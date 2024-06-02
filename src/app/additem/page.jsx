@@ -1,7 +1,7 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import { useToast, Container, Flex, Stack, Input, Button } from '@chakra-ui/react';
-import { supabase } from '@/utils/supabase'; // Make sure to import supabase
+import { supabase } from '@/utils/supabase'; // Ensure supabase is correctly imported
 import { useProfile } from '@/contexts/ProfileContext';
 
 const AddItemPage = () => {
@@ -13,7 +13,7 @@ const AddItemPage = () => {
         price: 0,
         rating: 0,
         product_id: '',
-        shop_id: 5, // Make sure to get the shop ID of the logged-in shop owner
+        shop_id: 5, // This will be overridden by userID
         category: '',
         brand: '',
         latitude: 0,
@@ -26,19 +26,14 @@ const AddItemPage = () => {
 
     const handleSubmit = async () => {
         try {
-            // Add additional fields to itemData before insertion
             const itemDataWithExtraFields = {
                 ...itemData,
                 shop_id: userID,
-                // Assuming the user ID represents the shop owner's ID
             };
 
-            // Insert itemDataWithExtraFields into the 'item' table
             const { data, error } = await supabase.from('items').insert([itemDataWithExtraFields]);
 
-            if (error) {
-                throw error;
-            }
+            if (error) throw error;
 
             toast({
                 title: 'Item Added',
@@ -59,29 +54,30 @@ const AddItemPage = () => {
         }
     };
 
-    const handleChange = (e, field) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
         setItemData({
             ...itemData,
-            [field]: e.target.value,
+            [name]: value,
         });
     };
 
     return (
-        <Container maxW='100vw' bg='white'>
-            <h1 style={{textAlign: "center", fontWeight: "bold", fontSize: "28px"}}>Add Item</h1>
-            <Flex direction='column' justify='center' align='center' mx={8} align='center' minH='100vh' maxW='85%' >
-                <Stack direction='column' justify='center' align='center' w='30%' m={4}>
-                    <Input m={3} type='text' placeholder='Name' onChange={(e) => handleChange(e, 'name')} size='md' />
-                    <Input m={3} type='text' placeholder='Image URL' onChange={(e) => handleChange(e, 'imageUrl')} />
-                    <Input m={3} type='number' placeholder='Price' onChange={(e) => handleChange(e, 'price')} />
-                    <Input m={3} type='number' placeholder='Rating' onChange={(e) => handleChange(e, 'rating')} />
-                    <Input m={3} type='text' placeholder='Product ID' onChange={(e) => handleChange(e, 'product_id')} />
-                    <Input m={3} type='text' placeholder='Category' onChange={(e) => handleChange(e, 'category')} />
-                    <Input m={3} type='text' placeholder='Brand' onChange={(e) => handleChange(e, 'brand')} />
-                    <Input m={3} type='number' placeholder='Quantity' onChange={(e) => handleChange(e, 'quantity')} />
-                    <Input m={3} type='text' placeholder='Description' onChange={(e) => handleChange(e, 'desc')} />
-                    <Input m={3} type='text' placeholder='Type' onChange={(e) => handleChange(e, 'type')} />
-                    <Input m={3} type='number' placeholder='Sales' onChange={(e) => handleChange(e, 'sales')} />
+        <Container maxW="100vw" bg="white">
+            <h1 style={{ textAlign: "center", fontWeight: "bold", fontSize: "28px" }}>Add Item</h1>
+            <Flex direction="column" justify="center" align="center" mx={8} minH="100vh" maxW="85%">
+                <Stack direction="column" justify="center" align="center" w="30%" m={4}>
+                    <Input m={3} type="text" name="name" placeholder="Name" onChange={handleChange} size="md" />
+                    <Input m={3} type="text" name="imageUrl" placeholder="Image URL" onChange={handleChange} />
+                    <Input m={3} type="number" name="price" placeholder="Price" onChange={handleChange} />
+                    <Input m={3} type="number" name="rating" placeholder="Rating" onChange={handleChange} />
+                    <Input m={3} type="text" name="product_id" placeholder="Product ID" onChange={handleChange} />
+                    <Input m={3} type="text" name="category" placeholder="Category" onChange={handleChange} />
+                    <Input m={3} type="text" name="brand" placeholder="Brand" onChange={handleChange} />
+                    <Input m={3} type="number" name="quantity" placeholder="Quantity" onChange={handleChange} />
+                    <Input m={3} type="text" name="desc" placeholder="Description" onChange={handleChange} />
+                    <Input m={3} type="text" name="type" placeholder="Type" onChange={handleChange} />
+                    <Input m={3} type="number" name="sales" placeholder="Sales" onChange={handleChange} />
                     <Button onClick={handleSubmit}>Submit</Button>
                 </Stack>
             </Flex>
