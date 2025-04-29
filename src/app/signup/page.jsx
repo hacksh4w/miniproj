@@ -30,6 +30,7 @@ export default function SignUp() {
         position: "top",
       });
     console.log(user)
+    console.log("Full Name is:", fullName, "Email ID :", email, "Passowrd is :", password, );
       if (error) {
         throw error;
       }
